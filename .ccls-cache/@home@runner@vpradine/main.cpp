@@ -2,6 +2,7 @@
 #include <string>
 #include <vector>
 #include <iomanip>
+#include <algorithm>
 
 using namespace std;
 
@@ -25,7 +26,7 @@ vector<int> nuskaitytiPazymius() {
   
 }
 
-double apskaiciuotiGalutiniBala(const vector <int>& pazymiai, int egzas) {
+double apskaiciuotiGalutiniBalaVidurkis(const vector <int>& pazymiai, int egzas) {
   double vidurkis = 0.0;
   for (int pazymis : pazymiai) {
     vidurkis += pazymis;
@@ -33,9 +34,21 @@ double apskaiciuotiGalutiniBala(const vector <int>& pazymiai, int egzas) {
   if (!pazymiai.empty()) {
     vidurkis /= pazymiai.size();
   }
-  double galutinis = 0.4 * vidurkis + 0.6 * egzas;
-  return galutinis;
+  return vidurkis;
+}
 
+double skaiciuotiGalutiniBalaMediana(const vector <int>& pazymiai) {
+  vector<int> pazymiukopija = pazymiai;
+  sort(pazymiukopija.begin(), pazymiukopija.end());
+  int dydis = pazymiukopija.size();
+  if (dydis % 2 == 0) {
+    int viduris1 = pazymiukopija[dydis / 2 -1];
+    int viduris2 = pazymiukopija[dydis / 2];
+    return (viduris1 + viduris2 / 2);
+  }
+  else {
+    return pazymiukopija[dydis / 2];
+  }
 }
 
 int main() {
@@ -54,11 +67,21 @@ int main() {
     cout << "Iveskite egzamino rezultata: ";
     cin >> studentas.egzas;
     studentas.pazymiai = nuskaitytiPazymius();
-    studentas.galutinis = apskaiciuotiGalutiniBala(studentas.pazymiai, studentas.egzas);
+    cout << "Pasirinkite skaiciavimo metoda (Vidurkis - V, Mediana - M): ";
+    char skaiciavimoMetodas;
+    cin >> skaiciavimoMetodas;
+    if (skaiciavimoMetodas == 'V' || skaiciavimoMetodas == 'v') {
+      studentas.galutinis = 0.4 * apskaiciuotiGalutiniBalaVidurkis(studentas.pazymiai, studentas.egzas) + 0.6 * studentas.egzas;
+    } else if (skaiciavimoMetodas == 'M' || skaiciavimoMetodas == 'v') {
+      studentas.galutinis = 0.4 * skaiciuotiGalutiniBalaMediana(studentas.pazymiai) + 0.6 * studentas.egzas;
+    } else {
+      cout << "Neteisingai parinktas skaiciavimo metodas. Taikomas vidurkis skaiciavimas" << endl;
+      studentas.galutinis = 0.4 * apskaiciuotiGalutiniBalaVidurkis(studentas.pazymiai, studentas.egzas) + 0.6 * studentas.egzas;
+    }
     studentai.push_back(studentas);
   }
 
-  cout << "Pavarde\tVardas\tGalutinis(Vid)" << endl;
+  cout << "Pavarde\tVardas\tGalutinis(Vid)\tGalutinis(Med)" << endl;
   cout << "---------------------------------------------" << endl;
   for (const Studentas& studentas : studentai) {
     cout << studentas.pavarde << "\t" << studentas.vardas << "\t" << fixed << setprecision(2) << studentas.galutinis << endl;         
