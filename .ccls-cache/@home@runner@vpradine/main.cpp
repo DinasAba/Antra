@@ -3,6 +3,8 @@
 #include <vector>
 #include <iomanip>
 #include <algorithm>
+#include <cstdlib>
+
 
 using namespace std;
 
@@ -14,16 +16,12 @@ struct Studentas {
   double galutinis;
 };
 
-vector<int> nuskaitytiPazymius() {
+vector<int> PazymiuGeneracija(int kiekis) {
   vector<int> pazymiai;
-  int pazymys; 
-
-  cout << "Įveskite namų darbų rezultatus (pabaiga zymima -1):";
-  while(cin >> pazymys && pazymys != -1) {
-    pazymiai.push_back(pazymys);
+  for (int i=0; i < kiekis; ++i) {
+    pazymiai.push_back(rand() % 10 + 1);
   }
   return pazymiai;
-  
 }
 
 double apskaiciuotiGalutiniBalaVidurkis(const vector <int>& pazymiai, int egzas) {
@@ -52,6 +50,8 @@ double skaiciuotiGalutiniBalaMediana(const vector <int>& pazymiai) {
 }
 
 int main() {
+  srand(static_cast<unsigned>(time(0)));
+  
   int studentuSkaicius;
   cout << "Iveskite studentu skaiciu:";
   cin >> studentuSkaicius;
@@ -64,15 +64,14 @@ int main() {
     cin >> studentas.vardas;
     cout << "Iveskite studento pavarde: ";
     cin >> studentas.pavarde;
-    cout << "Iveskite egzamino rezultata: ";
-    cin >> studentas.egzas;
-    studentas.pazymiai = nuskaitytiPazymius();
+    studentas.egzas = rand() % 10 + 1;
+    studentas.pazymiai = PazymiuGeneracija(rand() %10 + 1);
     cout << "Pasirinkite skaiciavimo metoda (Vidurkis - V, Mediana - M): ";
     char skaiciavimoMetodas;
     cin >> skaiciavimoMetodas;
     if (skaiciavimoMetodas == 'V' || skaiciavimoMetodas == 'v') {
       studentas.galutinis = 0.4 * apskaiciuotiGalutiniBalaVidurkis(studentas.pazymiai, studentas.egzas) + 0.6 * studentas.egzas;
-    } else if (skaiciavimoMetodas == 'M' || skaiciavimoMetodas == 'v') {
+    } else if (skaiciavimoMetodas == 'M' || skaiciavimoMetodas == 'm') {
       studentas.galutinis = 0.4 * skaiciuotiGalutiniBalaMediana(studentas.pazymiai) + 0.6 * studentas.egzas;
     } else {
       cout << "Neteisingai parinktas skaiciavimo metodas. Taikomas vidurkis skaiciavimas" << endl;
