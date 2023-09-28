@@ -6,8 +6,10 @@
 #include <cstdlib>
 #include <fstream>
 #include <ctime>
+#include "studentas.h"
+#include "pazymiai.h"
 
-
+using namespace std;
 
 vector<int> PazymiuGeneracija(int kiekis) {
     vector<int> pazymiai;
