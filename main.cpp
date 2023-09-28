@@ -2,7 +2,6 @@
 #include <string>
 #include <vector>
 #include <iomanip>
-#include <algorithm>
 #include <cstdlib>
 #include <fstream>
 #include <ctime>
@@ -10,38 +9,6 @@
 #include "pazymiai.h"
 
 using namespace std;
-
-vector<int> PazymiuGeneracija(int kiekis) {
-    vector<int> pazymiai;
-    for (int i = 0; i < kiekis; ++i) {
-        pazymiai.push_back(rand() % 10 + 1); 
-    }
-    return pazymiai;
-}
-
-double apskaiciuotiGalutiniBalaVidurkis(const vector<int>& pazymiai, int egzas) {
-    double vidurkis = 0.0;
-    for (int pazymis : pazymiai) {
-        vidurkis += pazymis;
-    }
-    if (!pazymiai.empty()) {
-        vidurkis /= pazymiai.size();
-    }
-    return vidurkis;
-}
-
-double skaiciuotiGalutiniBalaMediana(const vector<int>& pazymiai) {
-    vector<int> pazymiukopija = pazymiai;
-    sort(pazymiukopija.begin(), pazymiukopija.end());
-    int dydis = pazymiukopija.size();
-    if (dydis % 2 == 0) {
-        int viduris1 = pazymiukopija[dydis / 2 - 1];
-        int viduris2 = pazymiukopija[dydis / 2];
-        return (viduris1 + viduris2) / 2.0;
-    } else {
-        return pazymiukopija[dydis / 2];
-    }
-}
 
 int main() {
     srand(static_cast<unsigned>(time(0)));
