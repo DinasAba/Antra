@@ -18,9 +18,9 @@ double skaiciuotiGalutiniBalaMediana(const vector<int>& pazymiai) {
     int dydis = pazymiukopija.size();
     if (dydis % 2 == 0) {
         int viduris1 = pazymiukopija[dydis / 2 - 1];
-        int viduris2 = pazymiukopija[dydis / 2];
+        int viduris2 = pazymiukopija[dydis / 2.0];
         return (viduris1 + viduris2) / 2.0;
     } else {
-        return pazymiukopija[dydis / 2];
+        return pazymiukopija[dydis / 2.0];
     }
 }
