@@ -7,15 +7,7 @@
 #include <fstream>
 #include <ctime>
 
-using namespace std;
 
-struct Studentas {
-    string vardas;
-    string pavarde;
-    vector<int> pazymiai;
-    int egzas;
-    double galutinis;
-};
 
 vector<int> PazymiuGeneracija(int kiekis) {
     vector<int> pazymiai;
