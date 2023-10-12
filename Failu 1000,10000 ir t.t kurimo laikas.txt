@@ -1,0 +1,5 @@
+Failo C:\Users\User\Perepisyvaju\1000.txt kurimo trukme: 6 milisekundes
+Failo C:\Users\User\Perepisyvaju\10000.txt kurrimo trukme: 57 milisekundes
+Failo C:\Users\User\Perepisyvaju\100000.txt kurimo trukme: 541 milisekundes
+Failo C:\Users\User\Perepisyvaju\1000000.txt kurimo trukme: 5516 milisekundes
+Failo C:\Users\User\Perepisyvaju\10000000.txt kurimo trukme: 54512 milisekundes
