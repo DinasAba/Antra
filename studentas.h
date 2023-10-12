@@ -1,15 +1,18 @@
+
 #pragma once
+
 #include <string>
 #include <vector>
 
-using namespace std;
-
 struct Studentas {
-    string vardas;
-    string pavarde;
-    vector<int> pazymiai;
+    std::string vardas;
+    std::string pavarde;
+    std::vector<int> pazymiai;
     int egzas;
     double galutinis_vidurkis;
-    double galutinis_mediana;
 };
+
+double apskaiciuotiGalutiniBalaVidurkis(const std::vector<int>& pazymiai, int egzas);
+bool RusiavimasPavarde(const Studentas& a, const Studentas& b);
+
 
