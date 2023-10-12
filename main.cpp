@@ -2,92 +2,51 @@
 #include <string>
 #include <vector>
 #include <iomanip>
-#include <algorithm>
-#include <cstdlib>
 #include <fstream>
-#include <ctime>
+#include <algorithm>
+#include "studentas.h"
+#include "pazymiai.h"
 
 using namespace std;
 
-struct Studentas {
-    string vardas;
-    string pavarde;
-    vector<int> pazymiai;
-    int egzas;
-    double galutinis;
-};
-
-vector<int> PazymiuGeneracija(int kiekis) {
-    vector<int> pazymiai;
-    for (int i = 0; i < kiekis; ++i) {
-        pazymiai.push_back(rand() % 10 + 1); 
+bool RusiavimasPavarde(const Studentas& a, const Studentas& b) {
+    if (a.pavarde.length() != b.pavarde.length()) {
+        return a.pavarde.length() < b.pavarde.length();
     }
-    return pazymiai;
-}
-
-double apskaiciuotiGalutiniBalaVidurkis(const vector<int>& pazymiai, int egzas) {
-    double vidurkis = 0.0;
-    for (int pazymis : pazymiai) {
-        vidurkis += pazymis;
-    }
-    if (!pazymiai.empty()) {
-        vidurkis /= pazymiai.size();
-    }
-    return vidurkis;
-}
-
-double skaiciuotiGalutiniBalaMediana(const vector<int>& pazymiai) {
-    vector<int> pazymiukopija = pazymiai;
-    sort(pazymiukopija.begin(), pazymiukopija.end());
-    int dydis = pazymiukopija.size();
-    if (dydis % 2 == 0) {
-        int viduris1 = pazymiukopija[dydis / 2 - 1];
-        int viduris2 = pazymiukopija[dydis / 2];
-        return (viduris1 + viduris2) / 2.0;
-    } else {
-        return pazymiukopija[dydis / 2];
-    }
+    return a.pavarde < b.pavarde;
 }
 
 int main() {
-    srand(static_cast<unsigned>(time(0)));
+      srand(time(0));
 
-    cout << "Pasirinkite duomenis (Iš dokumento - D, Iš įvedimo - I): ";
-    char duomenusaltinis;
-    cin >> duomenusaltinis;
-    vector<Studentas> studentai;
+    for (int n = 1000; n <= 10000000; n *= 10) {
+        string filename = to_string(n) + ".txt";
+        ofstream outputFile(filename);
 
-    if (duomenusaltinis == 'I' || duomenusaltinis == 'i') {
-        int studentuSkaicius;
-        cout << "Iveskite studentu skaiciu:";
-        cin >> studentuSkaicius;
+        for (int i = 1; i <= n; ++i) {
+            outputFile << "Pavarde" << i << " Vardas" << i;
 
-        for (int i = 0; i < studentuSkaicius; ++i) {
-            Studentas studentas;
-            cout << "Iveskite studento varda: ";
-            cin >> studentas.vardas;
-            cout << "Iveskite studento pavarde: ";
-            cin >> studentas.pavarde;
-            studentas.egzas = rand() % 10 + 1;
-            studentas.pazymiai = PazymiuGeneracija(rand() % 10 + 1);
-            cout << "Pasirinkite skaiciavimo metoda (Vidurkis - V, Mediana - M): ";
-            char skaiciavimoMetodas;
-            cin >> skaiciavimoMetodas;
-            if (skaiciavimoMetodas == 'V' || skaiciavimoMetodas == 'v') {
-                studentas.galutinis = 0.4 * apskaiciuotiGalutiniBalaVidurkis(studentas.pazymiai, studentas.egzas) + 0.6 * studentas.egzas;
-            } else if (skaiciavimoMetodas == 'M' || skaiciavimoMetodas == 'm') {
-                studentas.galutinis = 0.4 * skaiciuotiGalutiniBalaMediana(studentas.pazymiai) + 0.6 * studentas.egzas;
-            } else {
-                cout << "Neteisingai parinktas skaiciavimo metodas. Taikomas vidurkis skaiciavimas" << endl;
-                studentas.galutinis = 0.4 * apskaiciuotiGalutiniBalaVidurkis(studentas.pazymiai, studentas.egzas) + 0.6 * studentas.egzas;
+            int pazymiuKiekis = rand() % 10 + 1; 
+
+            for (int j = 0; j < pazymiuKiekis; ++j) {
+                int pazymys = rand() % 10 + 1;
+                outputFile << " " << pazymys;
             }
-            studentai.push_back(studentas);
+
+            outputFile << endl;
         }
-    } else if (duomenusaltinis == 'D' || duomenusaltinis == 'd') {
-        ifstream inputFile("kursiokai.txt");
-        if (!inputFile.is_open()) {
-            cerr << "Klaida - failas 'kursiokai.txt' nerastas." << endl;
-            return 1;
+
+        outputFile.close();
+    }
+
+    return 0;
+
+    try {
+        vector<Studentas> studentai;
+        ifstream inputFile("2.txt"); 
+
+        if (!inputFile) {
+            throw runtime_error("Klaida - failas nerastas.");
         }
 
         string line;
@@ -96,7 +55,7 @@ int main() {
             istringstream iss(line);
             Studentas studentas;
             if (!(iss >> studentas.pavarde >> studentas.vardas)) {
-                cerr << "Klaida - neteisingas duomenu formatas: " << line << endl;
+                cerr << "Klaida - neteisingas duomenų formatas: " << line << endl;
                 continue;
             }
             studentas.pazymiai.clear();
@@ -105,36 +64,38 @@ int main() {
                 studentas.pazymiai.push_back(pazymys);
             }
             if (studentas.pazymiai.empty()) {
-                cerr << "Klaida - nera pazymiu duomenu: " << line << endl;
+                cerr << "Klaida - nėra pažymių duomenų: " << line << endl;
                 continue;
             }
             studentas.egzas = studentas.pazymiai.back();
             studentas.pazymiai.pop_back();
 
-            cout << "Pasirinkite skaiciavimo metoda (Vidurkis - V, Mediana - M): ";
-            char skaiciavimoMetodas;
-            cin >> skaiciavimoMetodas;
-            if (skaiciavimoMetodas == 'V' || skaiciavimoMetodas == 'v') {
-                studentas.galutinis = 0.4 * apskaiciuotiGalutiniBalaVidurkis(studentas.pazymiai, studentas.egzas) + 0.6 * studentas.egzas;
-            } else if (skaiciavimoMetodas == 'M' || skaiciavimoMetodas == 'm') {
-                studentas.galutinis = 0.4 * skaiciuotiGalutiniBalaMediana(studentas.pazymiai) + 0.6 * studentas.egzas;
-            } else {
-                cout << "Neteisingai parinktas skaiciavimo metodas. Taikomas vidurkis skaiciavimas" << endl;
-                studentas.galutinis = 0.4 * apskaiciuotiGalutiniBalaVidurkis(studentas.pazymiai, studentas.egzas) + 0.6 * studentas.egzas;
-            }
+            studentas.galutinis_vidurkis = apskaiciuotiGalutiniBalaVidurkis(studentas.pazymiai, studentas.egzas);
+            studentas.galutinis_mediana = skaiciuotiGalutiniBalaMediana(studentas.pazymiai);
+
             studentai.push_back(studentas);
         }
 
         inputFile.close();
-    } else {
-        cerr << "Klaida - neteisingai parinktas duomenu saltinis." << endl;
-        return 1;
-    }
 
-    cout << "Pavarde\tVardas\tGalutinis(Vid)\tGalutinis(Med)" << endl;
-    cout << "---------------------------------------------" << endl;
-    for (const Studentas& studentas : studentai) {
-        cout << studentas.pavarde << "\t" << studentas.vardas << "\t" << fixed << setprecision(2) << studentas.galutinis << endl;
+        if (studentai.empty()) {
+            throw runtime_error("Klaida - nėra studentų duomenų.");
+        }
+
+        sort(studentai.begin(), studentai.end(), RusiavimasPavarde);
+
+        cout << left << setw(15) << "Vardas" << setw(15) << "Pavarde" << setw(15) << "Galutinis(Vid.)" << setw(15)
+             << "Galutinis(Med.)" << endl;
+        cout << "--------------------------------------------------------------" << endl;
+        for (const Studentas& studentas : studentai) {
+            cout << setw(15) << studentas.vardas << setw(15) << studentas.pavarde << setw(15) << fixed
+                 << setprecision(2) << studentas.galutinis_vidurkis << setw(15) << studentas.galutinis_mediana << endl;
+        }
+    } catch (const exception& e) {
+        cerr << e.what() << endl;
+        return 1;
     }
     return 0;
 }
+
+
