@@ -3,26 +3,60 @@
 #include <vector>
 #include <iomanip>
 #include <algorithm>
-#include <cstdlib>
 #include <fstream>
 #include <ctime>
-#include "studentas.h"
 #include <chrono>
-
+#include "studentas.h"
 
 using namespace std;
 
-
 int main() {
+/*    srand(time(0));
+
+    for (int n = 1000; n <= 10000000; n *= 10) {
+        string filename = "C:\\Users\\User\\0.2uzd\\" + to_string(n) + ".txt";
+
+        auto start = chrono::high_resolution_clock::now();
+
+        ofstream outputFile(filename);
+
+        outputFile << left << setw(12) << "Vardas" << setw(12) << "Pavarde";
+        for (int i = 1; i <= 10; ++i) {
+            outputFile << left << setw(10) << "ND" + to_string(i);
+        }
+        outputFile << left << setw(10) << "Egz." << endl;
+
+        for (int i = 1; i <= n; ++i) {
+            outputFile << left << setw(12) << "Vardas" + to_string(i) << left << setw(12) << "Pavarde" + to_string(i);
+
+            for (int j = 0; j < 10; ++j) {
+                int pazymys = rand() % 11;
+                outputFile << left << setw(10) << pazymys;
+            }
+
+            int egzaminas = rand() % 11;
+            outputFile << left << setw(10) << egzaminas << endl;
+        }
+
+        outputFile.close();
+
+        auto end = chrono::high_resolution_clock::now();
+        auto duration = chrono::duration_cast<chrono::milliseconds>(end - start);
+        cout << "Failo " << filename << " kūrimo trukmė: " << duration.count() << " milisekundės" << endl;
+    }
+
+    return 0; */
+
     try {
         vector<Studentas> studentai;
-        ifstream inputFile("C:\\Users\\User\\0.2uzd\\1000.txt");
+        ifstream inputFile("C:\\Users\\User\\0.2uzd\\10000000.txt");
 
         if (!inputFile) {
             throw runtime_error("Klaida - failas nerastas.");
         }
 
         string line;
+        getline(inputFile, line);
 
         auto startRead = chrono::high_resolution_clock::now();
 
@@ -49,8 +83,8 @@ int main() {
 
             studentai.push_back(studentas);
         }
-
         inputFile.close();
+
 
         if (studentai.empty()) {
             throw runtime_error("Klaida - nėra studentų duomenų.");
@@ -99,8 +133,6 @@ int main() {
 
         auto endCategorize = chrono::high_resolution_clock::now();
 
-
-
         chrono::duration<double> durationRead = endRead - startRead;
         chrono::duration<double> durationCategorize = endCategorize - startCategorize;
         chrono::duration<double> durationWriteVargsiukai = endWriteVargsiukai - startWriteVargsiukai;
@@ -119,6 +151,7 @@ int main() {
     }
     return 0;
 }
+
 
 
 
