@@ -7,6 +7,7 @@
 #include <ctime>
 #include <chrono>
 #include "studentas.h"
+#include <list>
 
 using namespace std;
 
@@ -48,8 +49,8 @@ int main() {
     return 0; */
 
     try {
-        vector<Studentas> studentai;
-        ifstream inputFile("C:\\Users\\User\\0.2uzd\\10000000.txt");
+        list<Studentas> studentai;
+        ifstream inputFile("C:\\Users\\User\\0.2uzd\\10000.txt");
 
         if (!inputFile) {
             throw runtime_error("Klaida - failas nerastas.");
@@ -90,14 +91,14 @@ int main() {
             throw runtime_error("Klaida - nėra studentų duomenų.");
         }
 
-        sort(studentai.begin(), studentai.end(), RusiavimasPavarde);
+        studentai.sort(RusiavimasPavarde);
 
         auto endRead = chrono::high_resolution_clock::now();
 
 
 
-        vector<Studentas> vargsiukai;
-        vector<Studentas> kietiakiai;
+        list<Studentas> vargsiukai;
+        list<Studentas> kietiakiai;
 
         auto startCategorize = chrono::high_resolution_clock::now();
 
