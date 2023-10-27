@@ -1,9 +1,10 @@
 #include "studentas.h"
 #include <algorithm>
 
+
 using namespace std;
 
-double apskaiciuotiGalutiniBalaVidurkis(const std::vector<int>& pazymiai, int egzas) {
+double apskaiciuotiGalutiniBalaVidurkis(const std::list<int>& pazymiai, int egzas) {
         double vidurkis = 0.0;
         for (int pazymis : pazymiai) {
             vidurkis += pazymis;
