@@ -120,6 +120,7 @@ int main() {
                 studentas.pazymiai.pop_back();
 
                 studentas.galutinis_vidurkis = apskaiciuotiGalutiniBalaVidurkis(studentas.pazymiai, studentas.egzas);
+                studentas.galutinis_mediana = skaiciuotiGalutiniBalaMediana(studentas.pazymiai);
 
                 studentai.push_back(studentas);
             }
