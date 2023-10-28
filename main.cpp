@@ -7,6 +7,7 @@
 #include <ctime>
 #include <chrono>
 #include "studentas.h"
+#include <list>
 
 using namespace std;
 
@@ -17,7 +18,7 @@ int main() {
         cout << "Pasirinkite duomenis (Is dokumento - D, Is ivedimo - I): ";
         char duomenusaltinis;
         cin >> duomenusaltinis;
-        vector<Studentas> studentai;
+        list<Studentas> studentai;
 
         if (duomenusaltinis == 'I' || duomenusaltinis == 'i') {
             int studentuSkaicius;
@@ -28,7 +29,7 @@ int main() {
                 throw invalid_argument("Klaida - neteisingas studentu skaicius.");
             }
 
-            vector<Studentas> studentai;
+            list<Studentas> studentai;
 
             for (int i = 0; i < studentuSkaicius; ++i) {
                 Studentas studentas;
@@ -38,15 +39,16 @@ int main() {
                 cin >> studentas.pavarde;
                 studentas.egzas = rand() % 10 + 1;
 
-
+                studentas.pazymiai = PazymiuGeneracija(rand() % 10 + 1);
 
                 cout << "Objekto adresas: " << &studentas << endl;
 
                 studentas.galutinis_vidurkis = apskaiciuotiGalutiniBalaVidurkis(studentas.pazymiai, studentas.egzas);
-
+                studentas.galutinis_mediana = skaiciuotiGalutiniBalaMediana(studentas.pazymiai);
 
                 studentai.push_back(studentas);
             }
+
 
             char rezultatoRusis;
             cout << "Pasirinkite, kaip norite matyti rezultatus (M - mediana, V - vidurkis): ";
@@ -64,22 +66,26 @@ int main() {
 
             cout << "--------------------------------------------------------------" << endl;
 
+
             for (const Studentas &studentas: studentai) {
                 cout << setw(15) << studentas.vardas << setw(15) << studentas.pavarde << setw(15) << fixed
                      << setprecision(2);
                 if (rezultatoRusis == 'M' || rezultatoRusis == 'm') {
-
+                    cout << studentas.galutinis_mediana << endl;
                 } else if (rezultatoRusis == 'V' || rezultatoRusis == 'v') {
                     cout << studentas.galutinis_vidurkis << endl;
                 } else {
-
+                    cout << studentas.galutinis_mediana << endl;
                 }
             }
+
+
         } else if (duomenusaltinis == 'D' || duomenusaltinis == 'd') {
             ifstream inputFile("C:\\Users\\User\\0.2uzd\\10000000.txt");
             if (!inputFile) {
                 throw runtime_error("Klaida - failas nerastas.");
             }
+
 
             string line;
             getline(inputFile, line);
@@ -105,7 +111,9 @@ int main() {
                 studentas.egzas = studentas.pazymiai.back();
                 studentas.pazymiai.pop_back();
 
-                studentas.galutinis_vidurkis = apskaiciuotiGalutiniBalaVidurkis(studentas.pazymiai, studentas.egzas);
+                studentas.galutinis_vidurkis = apskaiciuotiGalutiniBalaVidurkis(studentas.pazymiai,
+                                                                                studentas.egzas);
+                studentas.galutinis_mediana = skaiciuotiGalutiniBalaMediana(studentas.pazymiai);
 
                 studentai.push_back(studentas);
             }
@@ -119,12 +127,13 @@ int main() {
 
             auto startSort = chrono::high_resolution_clock::now();
 
-            sort(studentai.begin(), studentai.end(), RusiavimasPavarde);
+            studentai.sort(RusiavimasPavarde);
 
             auto endSort = chrono::high_resolution_clock::now();
 
-            vector<Studentas> vargsiukai;
-            vector<Studentas> kietiakiai;
+
+            list<Studentas> vargsiukai;
+            list<Studentas> kietiakiai;
 
             auto startCategorize = chrono::high_resolution_clock::now();
 
@@ -135,6 +144,7 @@ int main() {
                     kietiakiai.push_back(studentas);
                 }
             }
+
 
             ofstream vargsiukaiFile("C:\\Users\\User\\0.2uzd\\vargsiukai.txt");
             ofstream kietiakiaiFile("C:\\Users\\User\\0.2uzd\\kietiakiai.txt");
@@ -169,6 +179,7 @@ int main() {
             chrono::duration<double> durationWriteVargsiukai = endWriteVargsiukai - startWriteVargsiukai;
             chrono::duration<double> durationWriteKietiakiai = endWriteKietiakiai - startWriteKietiakiai;
 
+
             cout << "Failo is " << studentai.size() << " irasu nuskaitymo laikas: " << durationRead.count()
                  << " sekundziu" << endl;
             cout << "Irasu rusiavimo laikas: " << durationSort.count() << " sekundziu" << endl;
@@ -184,15 +195,14 @@ int main() {
                  << durationRead.count() + durationCategorize.count() + durationWriteVargsiukai.count() +
                     durationWriteKietiakiai.count() + durationSort.count();
         }
-    } catch (const exception &e) {
+    }
+    catch (const exception &e) {
         cerr << e.what() << endl;
         return 1;
     }
 
     return 0;
 }
-
-
 
 
 

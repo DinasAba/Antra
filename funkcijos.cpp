@@ -12,7 +12,7 @@ double apskaiciuotiGalutiniBalaVidurkis(const std::list<int>& pazymiai, int egza
     if (!pazymiai.empty()) {
         vidurkis /= pazymiai.size();
     }
-    return 0.4 * vidurkis + 0.6 * (rand() % 10 + 1);
+    return 0.4 * vidurkis + 0.6 * egzas;
 }
 
 double skaiciuotiGalutiniBalaMediana(const list<int>& pazymiai) {
