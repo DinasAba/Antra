@@ -62,6 +62,7 @@ int main() {
                 throw invalid_argument("Klaida - neteisingas studentu skaicius.");
             }
 
+            list<Studentas> studentai;
 
             for (int i = 0; i < studentuSkaicius; ++i) {
                 Studentas studentas;
@@ -73,19 +74,42 @@ int main() {
 
                 studentas.pazymiai = PazymiuGeneracija(rand() % 10 + 1);
 
+                cout << "Objekto adresas: " << &studentas << endl;
+
                 studentas.galutinis_vidurkis = apskaiciuotiGalutiniBalaVidurkis(studentas.pazymiai, studentas.egzas);
                 studentas.galutinis_mediana = skaiciuotiGalutiniBalaMediana(studentas.pazymiai);
 
                 studentai.push_back(studentas);
             }
 
-            cout << left << setw(15) << "Vardas" << setw(15) << "Pavarde" << setw(15) << "Galutinis(Vid.)" << setw(15)
-                 << "Galutinis(Med.)" << endl;
+
+            char rezultatoRusis;
+            cout << "Pasirinkite, kaip norite matyti rezultatus (M - mediana, V - vidurkis): ";
+            cin >> rezultatoRusis;
+
+            cout << left << setw(15) << "Vardas" << setw(15) << "Pavarde" << setw(15) << "Galutinis";
+
+            if (rezultatoRusis == 'M' || rezultatoRusis == 'm') {
+                cout << "(Med.)" << endl;
+            } else if (rezultatoRusis == 'V' || rezultatoRusis == 'v') {
+                cout << "(Vid.)" << endl;
+            } else {
+                cout << "(Med.)" << endl;
+            }
+
             cout << "--------------------------------------------------------------" << endl;
-            for (const Studentas &studentas: studentai) {
+
+
+            for (const Studentas &studentas : studentai) {
                 cout << setw(15) << studentas.vardas << setw(15) << studentas.pavarde << setw(15) << fixed
-                     << setprecision(2)
-                     << studentas.galutinis_vidurkis << setw(15) << studentas.galutinis_mediana << endl;
+                     << setprecision(2);
+                if (rezultatoRusis == 'M' || rezultatoRusis == 'm') {
+                    cout << studentas.galutinis_mediana << endl;
+                } else if (rezultatoRusis == 'V' || rezultatoRusis == 'v') {
+                    cout << studentas.galutinis_vidurkis << endl;
+                } else {
+                    cout << studentas.galutinis_mediana << endl;
+                }
             }
 
 
