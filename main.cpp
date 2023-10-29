@@ -29,7 +29,6 @@ int main() {
                 throw invalid_argument("Klaida - neteisingas studentu skaicius.");
             }
 
-            list<Studentas> studentai;
 
             for (int i = 0; i < studentuSkaicius; ++i) {
                 Studentas studentas;
