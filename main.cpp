@@ -80,7 +80,7 @@ int main() {
 
 
         } else if (duomenusaltinis == 'D' || duomenusaltinis == 'd') {
-            ifstream inputFile("C:\\Users\\User\\uzduotis\\10000000.txt");
+            ifstream inputFile("C:\\Users\\User\\uzduotis\\1000.txt");
             if (!inputFile) {
                 throw runtime_error("Klaida - failas nerastas.");
             }
@@ -131,8 +131,11 @@ int main() {
             auto endSort = chrono::high_resolution_clock::now();
 
 
+
             list<Studentas> vargsiukai;
             list<Studentas> kietiakiai;
+
+            int pradinisStudentuSkaicius = studentai.size();
 
             auto startCategorize = chrono::high_resolution_clock::now();
 
@@ -181,10 +184,10 @@ int main() {
             //chrono::duration<double> durationWriteKietiakiai = endWriteKietiakiai - startWriteKietiakiai;
 
 
-            cout << "Failo is " << studentai.size() << " irasu nuskaitymo laikas: " << durationRead.count()
+            cout << "Failo is " << pradinisStudentuSkaicius << " irasu nuskaitymo laikas: " << durationRead.count()
                  << " sekundziu" << endl;
             cout << "Irasu rusiavimo laikas: " << durationSort.count() << " sekundziu" << endl;
-            cout << studentai.size() << " irasu dalijimo i dvigrupes laikas: " << durationCategorize.count()
+            cout << pradinisStudentuSkaicius << " irasu dalijimo i dvigrupes laikas: " << durationCategorize.count()
                  << " sekundziu" << endl;
             cout << vargsiukai.size() << " irasu vargsiuku irasymo i faila laikas: "
                  << durationWriteVargsiukai.count()
@@ -192,7 +195,7 @@ int main() {
             //cout << kietiakiai.size() << " irasu keteku irasymo i faila laikas: " << durationWriteKietiakiai.count()
             //     << " sekundziu" << endl;
 
-            cout << studentai.size() << " irasu testo laikas "
+            cout << pradinisStudentuSkaicius << " irasu testo laikas "
                  << durationRead.count() + durationCategorize.count() + durationWriteVargsiukai.count() +
                     /*durationWriteKietiakiai.count()*/ + durationSort.count();
         }
