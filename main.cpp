@@ -80,7 +80,7 @@ int main() {
 
 
         } else if (duomenusaltinis == 'D' || duomenusaltinis == 'd') {
-            ifstream inputFile("C:\\Users\\User\\0.2uzd\\10000000.txt");
+            ifstream inputFile("C:\\Users\\User\\uzduotis\\10000000.txt");
             if (!inputFile) {
                 throw runtime_error("Klaida - failas nerastas.");
             }
@@ -136,17 +136,19 @@ int main() {
 
             auto startCategorize = chrono::high_resolution_clock::now();
 
-            for (const Studentas &studentas: studentai) {
-                if (studentas.galutinis_vidurkis < 5.0) {
-                    vargsiukai.push_back(studentas);
+            auto it = studentai.begin();
+            while (it != studentai.end()) {
+                if (it->galutinis_vidurkis < 5.0) {
+                    vargsiukai.push_back(*it);
+                    it = studentai.erase(it);
                 } else {
-                    kietiakiai.push_back(studentas);
+                    ++it;
                 }
             }
 
 
-            ofstream vargsiukaiFile("C:\\Users\\User\\0.2uzd\\vargsiukai.txt");
-            ofstream kietiakiaiFile("C:\\Users\\User\\0.2uzd\\kietiakiai.txt");
+            ofstream vargsiukaiFile("C:\\Users\\User\\Desktop\\pirma-0.3\\vargsiukai.txt");
+            //ofstream kietiakiaiFile("C:\\Users\\User\\Desktop\\pirma-0.3\\kietiakiai.txt");
             auto startWriteVargsiukai = chrono::high_resolution_clock::now();
 
             for (const Studentas &studentas: vargsiukai) {
@@ -157,7 +159,7 @@ int main() {
 
             auto endWriteVargsiukai = chrono::high_resolution_clock::now();
 
-            auto startWriteKietiakiai = chrono::high_resolution_clock::now();
+            /*auto startWriteKietiakiai = chrono::high_resolution_clock::now();
 
             for (const Studentas &studentas: kietiakiai) {
                 kietiakiaiFile << studentas.vardas << " " << studentas.pavarde << " "
@@ -165,10 +167,10 @@ int main() {
                                << endl;
             }
 
-            auto endWriteKietiakiai = chrono::high_resolution_clock::now();
+            auto endWriteKietiakiai = chrono::high_resolution_clock::now(); */
 
             vargsiukaiFile.close();
-            kietiakiaiFile.close();
+            //kietiakiaiFile.close();
 
             auto endCategorize = chrono::high_resolution_clock::now();
 
@@ -176,7 +178,7 @@ int main() {
             chrono::duration<double> durationSort = endSort - startSort;
             chrono::duration<double> durationCategorize = endCategorize - startCategorize;
             chrono::duration<double> durationWriteVargsiukai = endWriteVargsiukai - startWriteVargsiukai;
-            chrono::duration<double> durationWriteKietiakiai = endWriteKietiakiai - startWriteKietiakiai;
+            //chrono::duration<double> durationWriteKietiakiai = endWriteKietiakiai - startWriteKietiakiai;
 
 
             cout << "Failo is " << studentai.size() << " irasu nuskaitymo laikas: " << durationRead.count()
@@ -187,12 +189,12 @@ int main() {
             cout << vargsiukai.size() << " irasu vargsiuku irasymo i faila laikas: "
                  << durationWriteVargsiukai.count()
                  << " sekundziu" << endl;
-            cout << kietiakiai.size() << " irasu keteku irasymo i faila laikas: " << durationWriteKietiakiai.count()
-                 << " sekundziu" << endl;
+            //cout << kietiakiai.size() << " irasu keteku irasymo i faila laikas: " << durationWriteKietiakiai.count()
+            //     << " sekundziu" << endl;
 
             cout << studentai.size() << " irasu testo laikas "
                  << durationRead.count() + durationCategorize.count() + durationWriteVargsiukai.count() +
-                    durationWriteKietiakiai.count() + durationSort.count();
+                    /*durationWriteKietiakiai.count()*/ + durationSort.count();
         }
     }
     catch (const exception &e) {
