@@ -222,12 +222,12 @@ __Struct:__
 
 |          Operacijos          | 100000.txt | 1000000.txt |
 |:----------------------------:|:----------:|:-----------:|
-|       Failo skaitymas        |            |             |
-|          Rušiavimas          |            |             |
-| Irasu dalijimas i dvi grupes |            |             |
-|  Vargsiuku irasymas i faila  |            |             |
-|   Keteku irasymas i faila    |            |             |
-|     Ap. Bendras laikas       |            |             |
+|       Failo skaitymas        | 0.529299 s | 5.299737 s  |
+|          Rušiavimas          | 0.077640 s | 1.836603 s  |
+| Irasu dalijimas i dvi grupes | 0.007297 s | 0.075269 s  |
+|  Vargsiuku irasymas i faila  | 0.314385 s | 3.131496 s  |
+|   Keteku irasymas i faila    | 0.310402 s | 3.187624 s  |
+|     Ap. Bendras laikas       | 1.239022 s | 13.530729 s |
 
 __Class:__
 
@@ -248,23 +248,23 @@ __Struct:__
 
 |          Operacijos          | 100000.txt | 1000000.txt |
 |:----------------------------:|:----------:|:-----------:|
-|       Failo skaitymas        |            |             |
-|          Rušiavimas          |            |             |
-| Irasu dalijimas i dvi grupes |            |             |
-|  Vargsiuku irasymas i faila  |            |             |
-|   Keteku irasymas i faila    |            |             |
-|     Ap. Bendras laikas       |            |             |
+|       Failo skaitymas        | 0.533263 s | 5.274458 s  |
+|          Rušiavimas          | 0.078503 s | 1.852389 s  |
+| Irasu dalijimas i dvi grupes | 0.007294 s | 0.073171 s  |
+|  Vargsiuku irasymas i faila  | 0.309397 s | 3.147381 s  |
+|   Keteku irasymas i faila    | 0.316356 s | 3.171818 s  |
+|     Ap. Bendras laikas       | 1.244813 s | 13.519218 s |
 
 __Class:__
 
 |          Operacijos          | 100000.txt | 1000000.txt |
 |:----------------------------:|:----------:|:-----------:|
-|       Failo skaitymas        |            |             |
-|          Rušiavimas          |            |             |
-| Irasu dalijimas i dvi grupes |            |             |
-|  Vargsiuku irasymas i faila  |            |             |
-|   Keteku irasymas i faila    |            |             |
-|     Ap. Bendras laikas       |            |             |
+|       Failo skaitymas        | 0.545427 s | 5.496153 s  |
+|          Rušiavimas          | 0.727605 s | 5.769566 s  |
+| Irasu dalijimas i dvi grupes | 0.016126 s | 0.187719 s  |
+|  Vargsiuku irasymas i faila  | 0.310042 s | 3.181238 s  |
+|   Keteku irasymas i faila    | 0.319782 s | 3.222326 s  |
+|     Ap. Bendras laikas       | 1.918982 s | 17.857002 s |
 
 -----------------------------------------------------------------------------------------------------------
 
@@ -272,25 +272,27 @@ __Class:__
 
 __Struct:__
 
-|          Operacijos          | 100000.txt | 1000000.txt |
-|:----------------------------:|:----------:|:-----------:|
-|       Failo skaitymas        |            |             |
-|          Rušiavimas          |            |             |
-| Irasu dalijimas i dvi grupes |            |             |
-|  Vargsiuku irasymas i faila  |            |             |
-|   Keteku irasymas i faila    |            |             |
-|     Ap. Bendras laikas       |            |             |
+|          Operacijos          | 100000.txt |  1000000.txt   |
+|:----------------------------:|:----------:|:--------------:|
+|       Failo skaitymas        | 0.536109 s | 5.281998 s     |
+|          Rušiavimas          | 0.078029 s |   1.845768 s   |
+| Irasu dalijimas i dvi grupes | 0.007426 s |   0.080346 s   |
+|  Vargsiuku irasymas i faila  | 0.312184 s |   3.132923 s   |
+|   Keteku irasymas i faila    | 0.315715 s |   3.170846 s   |
+|     Ap. Bendras laikas       | 1.249463 s |   13.511881    |
 
 __Class:__
 
 |          Operacijos          | 100000.txt | 1000000.txt |
 |:----------------------------:|:----------:|:-----------:|
-|       Failo skaitymas        |            |             |
-|          Rušiavimas          |            |             |
-| Irasu dalijimas i dvi grupes |            |             |
-|  Vargsiuku irasymas i faila  |            |             |
-|   Keteku irasymas i faila    |            |             |
-|     Ap. Bendras laikas       |            |             |
+|       Failo skaitymas        | 0.541885 s | 5.500045 s  |
+|          Rušiavimas          | 0.719613 s | 5.839997 s  |
+| Irasu dalijimas i dvi grupes | 0.015724 s | 0.192832 s  |
+|  Vargsiuku irasymas i faila  | 0.319889 s | 3.160602 s  |
+|   Keteku irasymas i faila    | 0.319154 s | 3.161902 s  |
+|     Ap. Bendras laikas       | 1.916265 s | 17.855378 s |
 
 -----------------------------------------------------------------------------------------------------------
 
+Kaip matome iš rezultatų, geriausią laiką parodė FLAG 03 Struct. Class'ės yra šiek tiek letesnes, nepriklausomai nuo  
+FLAG'ų, dirba beveik vienodai, bet verta pastebėti, kad FLAG'ai vistiek paspartina programos veikimo greitį.
