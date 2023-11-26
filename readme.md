@@ -183,3 +183,114 @@ Tada programa paprasys pasirinkti kokia strategija norite pritaikyti ir matavimo
 
 
 
+
+
+# __V1.1__
+
+
+Versija v1.0 buvo realizuota su class'emis, todėl tikslas buvo palyginti abiejų programų: naudojančios struct   
+iš v1.0 ir class tipo Studentus iš dabartinės realizacijos veikimo laiką, naudojant vieną fiksuotą kontenerį (vector)  
+Kadangi greičiausia strategija buvo Nr3, todėl palyginimai buvo atlikti naudojant būtent strategiją Nr3.
+
+-----------------------------------------------------------------------------------------------------------
+
+__Struct: __
+
+|          Operacijos          | 100000.txt | 1000000.txt |
+|:----------------------------:|:----------:|:-----------:|
+|       Failo skaitymas        | 0.571593 s | 5.989166 s  |
+|          Rušiavimas          | 0.076395 s | 1.943283 s  |
+| Irasu dalijimas i dvi grupes | 0.007118 s | 0.077971 s  |
+|  Vargsiuku irasymas i faila  | 0.309592 s | 3.315348 s  |
+|   Keteku irasymas i faila    | 0.309998 s | 3.361488 s  |
+|     Ap. Bendras laikas       | 1.274695 s | 14.687256 s |
+
+__Class:__
+
+|          Operacijos          |   100000.txt    | 1000000.txt |
+|:----------------------------:|:---------------:|:-----------:|
+|       Failo skaitymas        |   0.547799 s    | 5.543150 s  |
+|          Rušiavimas          |   0.733446 s    | 5.980395 s  |
+| Irasu dalijimas i dvi grupes |   0.016154 s    | 0.189791 s  |
+|  Vargsiuku irasymas i faila  |   0.315359 s    | 3.237792 s  |
+|   Keteku irasymas i faila    |   0.319776 s    | 3.300957 s  |
+|     Ap. Bendras laikas       |   1.932535 s    | 18.252086 s |
+
+-----------------------------------------------------------------------------------------------------------
+### ___FLAG 01___  
+__Struct:__
+
+|          Operacijos          | 100000.txt | 1000000.txt |
+|:----------------------------:|:----------:|:-----------:|
+|       Failo skaitymas        |            |             |
+|          Rušiavimas          |            |             |
+| Irasu dalijimas i dvi grupes |            |             |
+|  Vargsiuku irasymas i faila  |            |             |
+|   Keteku irasymas i faila    |            |             |
+|     Ap. Bendras laikas       |            |             |
+
+__Class:__
+
+|          Operacijos          | 100000.txt | 1000000.txt |
+|:----------------------------:|:----------:|:-----------:|
+|       Failo skaitymas        | 0.548622 s | 5.466082 s  |
+|          Rušiavimas          | 0.717433 s | 5.853845 s  |
+| Irasu dalijimas i dvi grupes | 0.018312 s | 0.192530 s  |
+|  Vargsiuku irasymas i faila  | 0.314118 s | 3.191929 s  |
+|   Keteku irasymas i faila    | 0.323983 s | 3.228211 s  |
+|     Ap. Bendras laikas       | 1.922468 s | 17.932597 s |
+
+-----------------------------------------------------------------------------------------------------------
+
+### ___FLAG 02___
+
+__Struct:__
+
+|          Operacijos          | 100000.txt | 1000000.txt |
+|:----------------------------:|:----------:|:-----------:|
+|       Failo skaitymas        |            |             |
+|          Rušiavimas          |            |             |
+| Irasu dalijimas i dvi grupes |            |             |
+|  Vargsiuku irasymas i faila  |            |             |
+|   Keteku irasymas i faila    |            |             |
+|     Ap. Bendras laikas       |            |             |
+
+__Class:__
+
+|          Operacijos          | 100000.txt | 1000000.txt |
+|:----------------------------:|:----------:|:-----------:|
+|       Failo skaitymas        |            |             |
+|          Rušiavimas          |            |             |
+| Irasu dalijimas i dvi grupes |            |             |
+|  Vargsiuku irasymas i faila  |            |             |
+|   Keteku irasymas i faila    |            |             |
+|     Ap. Bendras laikas       |            |             |
+
+-----------------------------------------------------------------------------------------------------------
+
+### ___FLAG 03___
+
+__Struct:__
+
+|          Operacijos          | 100000.txt | 1000000.txt |
+|:----------------------------:|:----------:|:-----------:|
+|       Failo skaitymas        |            |             |
+|          Rušiavimas          |            |             |
+| Irasu dalijimas i dvi grupes |            |             |
+|  Vargsiuku irasymas i faila  |            |             |
+|   Keteku irasymas i faila    |            |             |
+|     Ap. Bendras laikas       |            |             |
+
+__Class:__
+
+|          Operacijos          | 100000.txt | 1000000.txt |
+|:----------------------------:|:----------:|:-----------:|
+|       Failo skaitymas        |            |             |
+|          Rušiavimas          |            |             |
+| Irasu dalijimas i dvi grupes |            |             |
+|  Vargsiuku irasymas i faila  |            |             |
+|   Keteku irasymas i faila    |            |             |
+|     Ap. Bendras laikas       |            |             |
+
+-----------------------------------------------------------------------------------------------------------
+
