@@ -6,60 +6,9 @@
 #include <fstream>
 #include <ctime>
 #include <chrono>
-
+#include "studentas.h"
 
 using namespace std;
-
-struct Studentas {
-    std::string vardas;
-    std::string pavarde;
-    std::vector<int> pazymiai;
-    int egzas;
-    double galutinis_vidurkis;
-    double galutinis_mediana;
-};
-
-bool RusiavimasPavarde(const Studentas& a, const Studentas& b) {
-    if (a.pavarde.length() != b.pavarde.length()) {
-        return a.pavarde.length() < b.pavarde.length();
-    }
-    return a.pavarde < b.pavarde;
-}
-
-double skaiciuotiGalutiniBalaMediana(const vector<int>& pazymiai) {
-    vector<int> pazymiukopija = pazymiai;
-    std::sort(pazymiukopija.begin(), pazymiukopija.end());
-    int dydis = pazymiukopija.size();
-
-    if (dydis % 2 == 0) {
-        auto it1 = std::next(pazymiukopija.begin(), dydis / 2 - 1);
-        auto it2 = std::next(pazymiukopija.begin(), dydis / 2);
-        int viduris1 = *it1;
-        int viduris2 = *it2;
-        return (viduris1 + viduris2) / 2.0;
-    } else {
-        auto it = std::next(pazymiukopija.begin(), dydis / 2);
-        return *it;
-    }
-}
-
-double apskaiciuotiGalutiniBalaVidurkis(const vector<int>& pazymiai, int egzas) {
-    double vidurkis = 0.0;
-    for (int pazymis : pazymiai) {
-        vidurkis += pazymis;
-    }
-    vidurkis /= (pazymiai.size() > 0 ? pazymiai.size() : 1);
-    return 0.4 * vidurkis + 0.6 * egzas;
-}
-
-
-vector<int> PazymiuGeneracija(int kiekis) {
-    vector<int> pazymiai;
-    for (int i = 0; i < kiekis; ++i) {
-        pazymiai.push_back(rand() % 10 + 1);
-    }
-    return pazymiai;
-}
 
 int main() {
     srand(time(0));
@@ -83,17 +32,23 @@ int main() {
             for (int i = 0; i < studentuSkaicius; ++i) {
                 Studentas studentas;
                 cout << "Iveskite studento varda: ";
-                cin >> studentas.vardas;
-                cout << "Iveskite studento pavarde: ";
-                cin >> studentas.pavarde;
-                studentas.egzas = rand() % 10 + 1;
+                std::string vardas;
+                cin >> vardas;
+                studentas.setVardas(vardas);
 
-                studentas.pazymiai = PazymiuGeneracija(rand() % 10 + 1);
+                cout << "Iveskite studento pavarde: ";
+                std::string pavarde;
+                cin >> pavarde;
+                studentas.setPavarde(pavarde);
+
+                studentas.setEgzas(rand() % 10 + 1);
+
+                studentas.setPazymiai(PazymiuGeneracija(rand() % 10 + 1));
 
                 cout << "Objekto adresas: " << &studentas << endl;
 
-                studentas.galutinis_vidurkis = apskaiciuotiGalutiniBalaVidurkis(studentas.pazymiai, studentas.egzas);
-                studentas.galutinis_mediana = skaiciuotiGalutiniBalaMediana(studentas.pazymiai);
+                studentas.setGalutinisVidurkis(apskaiciuotiGalutiniBalaVidurkis(studentas.getPazymiai(), studentas.getEgzas()));
+                studentas.setGalutinisMediana(skaiciuotiGalutiniBalaMediana(studentas.getPazymiai()));
 
                 studentai.push_back(studentas);
             }
@@ -117,14 +72,14 @@ int main() {
 
 
             for (const Studentas &studentas: studentai) {
-                cout << setw(15) << studentas.vardas << setw(15) << studentas.pavarde << setw(15) << fixed
+                cout << setw(15) << studentas.getVardas() << setw(15) << studentas.getPavarde() << setw(15) << fixed
                      << setprecision(2);
                 if (rezultatoRusis == 'M' || rezultatoRusis == 'm') {
-                    cout << studentas.galutinis_mediana << endl;
+                    cout << studentas.getGalutinisMediana() << endl;
                 } else if (rezultatoRusis == 'V' || rezultatoRusis == 'v') {
-                    cout << studentas.galutinis_vidurkis << endl;
+                    cout << studentas.getGalutinisVidurkis() << endl;
                 } else {
-                    cout << studentas.galutinis_mediana << endl;
+                    cout << studentas.getGalutinisMediana() << endl;
                 }
             }
 
@@ -149,44 +104,7 @@ int main() {
                 cerr << "Klaida, pasirinkite tinkama faila" << endl;
             }
 
-            std::ifstream inputFile(filename);
-            if (!inputFile.is_open()) {
-                throw std::runtime_error("Klaida - failas nerastas.");
-            }
-            string line;
-            getline(inputFile, line);
 
-            while (getline(inputFile, line)) {
-                istringstream iss(line);
-                Studentas studentas;
-
-                if (!(iss >> studentas.pavarde >> studentas.vardas)) {
-                    cerr << "Klaida - neteisingas duomenų formatas: " << line << endl;
-                    continue;
-                }
-                studentas.pazymiai.clear();
-                int pazymys;
-                while (iss >> pazymys) {
-                    studentas.pazymiai.push_back(pazymys);
-                }
-                if (studentas.pazymiai.empty()) {
-                    cerr << "Klaida - nėra pažymių duomenų: " << line << endl;
-                    continue;
-                }
-                studentas.egzas = studentas.pazymiai.back();
-                studentas.pazymiai.pop_back();
-
-                studentas.galutinis_vidurkis = apskaiciuotiGalutiniBalaVidurkis(studentas.pazymiai,
-                                                                                studentas.egzas);
-                studentas.galutinis_mediana = skaiciuotiGalutiniBalaMediana(studentas.pazymiai);
-
-                studentai.push_back(studentas);
-            }
-            inputFile.close();
-            inputFile.clear();
-            inputFile.seekg(0, ios::beg);
-
-            int pradinisStudentuSkaicius = studentai.size();
             cout << "Pasirinkite strategija 1,2,3: " << setprecision(10);
             int strategija;
             cin >> strategija;
@@ -204,36 +122,61 @@ int main() {
                     double totalSort = 0;
 
 
-                    for (int kartojimai = 1; kartojimai <= 3; ++kartojimai) {
-                        vargsiukai.clear();
+                    for (int kartojimai = 1; kartojimai <= 5; ++kartojimai) {
                         kietiakai.clear();
+                        vargsiukai.clear();
 
-                        auto startRead = chrono::high_resolution_clock::now();
+                        auto startRead = std::chrono::high_resolution_clock::now();
+
+                        std::ifstream inputFile(filename);
+                        if (!inputFile.is_open()) {
+                            throw std::runtime_error("Klaida - failas nerastas.");
+                        }
+                        std::string line;
+
+                        studentai.clear();
+
+                        getline(inputFile, line);
+
 
                         while (getline(inputFile, line)) {
                             istringstream iss(line);
                             Studentas studentas;
-                            if (!(iss >> studentas.pavarde >> studentas.vardas)) {
+
+                            std::string vardas, pavarde;
+                            if (!(iss >> vardas >> pavarde)) {
                                 cerr << "Klaida - neteisingas duomenų formatas: " << line << endl;
                                 continue;
                             }
-                            studentas.pazymiai.clear();
+
+                            studentas.setVardas(vardas);
+                            studentas.setPavarde(pavarde);
+
+                            studentas.clearPazymiai();
+
                             int pazymys;
                             while (iss >> pazymys) {
-                                studentas.pazymiai.push_back(pazymys);
+                                studentas.addPazymys(pazymys);
                             }
-                            if (studentas.pazymiai.empty()) {
+
+
+                            if (studentas.getPazymiai().empty()) {
                                 cerr << "Klaida - nėra pažymių duomenų: " << line << endl;
                                 continue;
                             }
-                            studentas.egzas = studentas.pazymiai.back();
-                            studentas.pazymiai.pop_back();
 
-                            studentas.galutinis_vidurkis = apskaiciuotiGalutiniBalaVidurkis(studentas.pazymiai,
-                                                                                            studentas.egzas);
-                            studentas.galutinis_mediana = skaiciuotiGalutiniBalaMediana(studentas.pazymiai);
+                            if (!studentas.getPazymiai().empty()) {
+                                int egzas = studentas.getPazymiai().back();
+                                studentas.getPazymiai().pop_back();
+                                studentas.setEgzas(egzas);}
 
-                            studentai.push_back(studentas);
+
+                            const auto& pazymiai = studentas.getPazymiai();
+
+                            studentas.setGalutinisVidurkis(apskaiciuotiGalutiniBalaVidurkis(pazymiai, studentas.getEgzas()));
+
+
+                            studentai.push_back(std::move(studentas));
                         }
 
                         inputFile.close();
@@ -245,7 +188,7 @@ int main() {
 
                         auto startSort = chrono::high_resolution_clock::now();
 
-                        std::sort(studentai.begin(), studentai.end(), RusiavimasPavarde);
+                        sort(studentai.begin(), studentai.end(), RusiavimasPavarde);
 
                         auto endSort = chrono::high_resolution_clock::now();
 
@@ -258,19 +201,19 @@ int main() {
                         auto startCategorize = chrono::high_resolution_clock::now();
 
                         for (const Studentas &studentas: studentai) {
-                            if (studentas.galutinis_vidurkis < 5.0) {
+                            if (studentas.getGalutinisVidurkis() < 5.0) {
                                 vargsiukai.push_back(studentas);
                             } else {
                                 kietiakai.push_back(studentas);
                             }
                         }
                         ofstream vargsiukaiFile("C:\\Users\\User\\Desktop\\pirma-0.3\\vargsiukai.txt");
-                        ofstream kietiakiaiFile("C:\\Users\\User\\pirma-0.3\\kietiakiai.txt");
+                        ofstream kietiakiaiFile("C:\\Users\\User\\Desktop\\pirma-0.3\\kietiakiai.txt");
                         auto startWriteVargsiukai = chrono::high_resolution_clock::now();
 
                         for (const Studentas &studentas: vargsiukai) {
-                            vargsiukaiFile << studentas.vardas << " " << studentas.pavarde << " "
-                                           << studentas.galutinis_vidurkis
+                            vargsiukaiFile << studentas.getVardas() << " " << studentas.getPavarde() << " "
+                                           << studentas.getGalutinisVidurkis()
                                            << endl;
                         }
 
@@ -279,8 +222,8 @@ int main() {
                         auto startWriteKietiakiai = chrono::high_resolution_clock::now();
 
                         for (const Studentas &studentas: kietiakai) {
-                            kietiakiaiFile << studentas.vardas << " " << studentas.pavarde << " "
-                                           << studentas.galutinis_vidurkis
+                            kietiakiaiFile << studentas.getVardas() << " " << studentas.getPavarde() << " "
+                                           << studentas.getGalutinisVidurkis()
                                            << endl;
                         }
 
@@ -303,11 +246,11 @@ int main() {
                     }
 
 
-                    double avgCategorize = totalCategorize / 3;
-                    double avgWriteVargsiukai = totalWriteVargsiukai / 3;
-                    double avgWriteKietiakai = totalWriteKetiakai / 3;
-                    double avgRead = totalRead / 3;
-                    double avgSort = totalSort / 3;
+                    double avgCategorize = totalCategorize / 5;
+                    double avgWriteVargsiukai = totalWriteVargsiukai / 5;
+                    double avgWriteKietiakai = totalWriteKetiakai / 5;
+                    double avgRead = totalRead / 5;
+                    double avgSort = totalSort / 5;
 
                     cout << fixed << setprecision(6);
                     cout << "Failo is " << studentai.size() << " irasu nuskaitymo laikas: " << avgRead << " sekundziu"
@@ -329,7 +272,7 @@ int main() {
                 }
 
 
-                case 2: {
+              /*  case 2: {
                     vector<Studentas> vargsiukai;
                     double totalCategorize = 0;
                     double totalWriteVargsiukai = 0;
@@ -337,7 +280,7 @@ int main() {
                     double totalSort = 0;
 
 
-                    for (int kartojimai = 1; kartojimai <= 3; ++kartojimai) {
+                    for (int kartojimai = 1; kartojimai <= 5; ++kartojimai) {
 
                         auto startRead = chrono::high_resolution_clock::now();
                         inputFile.close();
@@ -346,25 +289,30 @@ int main() {
                         while (getline(inputFile, line)) {
                             istringstream iss(line);
                             Studentas studentas;
-                            if (!(iss >> studentas.pavarde >> studentas.vardas)) {
+
+                            std::string pavarde, vardas;
+                            if (!(iss >> pavarde >> vardas)) {
                                 cerr << "Klaida - neteisingas duomenų formatas: " << line << endl;
                                 continue;
                             }
-                            studentas.pazymiai.clear();
+                            studentas.setPavarde(pavarde);
+                            studentas.setVardas(vardas);
+
+                            studentas.getPazymiai().clear();
                             int pazymys;
                             while (iss >> pazymys) {
-                                studentas.pazymiai.push_back(pazymys);
+                                studentas.getPazymiai().push_back(pazymys);
                             }
-                            if (studentas.pazymiai.empty()) {
+                            if (studentas.getPazymiai().empty()) {
                                 cerr << "Klaida - nėra pažymių duomenų: " << line << endl;
                                 continue;
                             }
-                            studentas.egzas = studentas.pazymiai.back();
-                            studentas.pazymiai.pop_back();
 
-                            studentas.galutinis_vidurkis = apskaiciuotiGalutiniBalaVidurkis(studentas.pazymiai,
-                                                                                            studentas.egzas);
-                            studentas.galutinis_mediana = skaiciuotiGalutiniBalaMediana(studentas.pazymiai);
+                            studentas.setEgzas(studentas.getPazymiai().back());
+                            studentas.getPazymiai().pop_back();
+
+                            studentas.setGalutinisVidurkis(apskaiciuotiGalutiniBalaVidurkis(studentas.getPazymiai(), studentas.getEgzas()));
+                            studentas.setGalutinisMediana(skaiciuotiGalutiniBalaMediana(studentas.getPazymiai()));
 
                             studentai.push_back(studentas);
                         }
@@ -388,7 +336,7 @@ int main() {
 
                         auto it = studentai.begin();
                         while (it != studentai.end()) {
-                            if (it->galutinis_vidurkis < 5.0) {
+                            if (it->getGalutinisVidurkis() < 5.0) {
                                 vargsiukai.push_back(*it);
                                 it = studentai.erase(it);
                             } else {
@@ -401,8 +349,8 @@ int main() {
                         auto startWriteVargsiukai = chrono::high_resolution_clock::now();
 
                         for (const Studentas &studentas: vargsiukai) {
-                            vargsiukaiFile << studentas.vardas << " " << studentas.pavarde << " "
-                                           << studentas.galutinis_vidurkis
+                            vargsiukaiFile << studentas.getVardas() << " " << studentas.getPavarde() << " "
+                                           << studentas.getGalutinisVidurkis()
                                            << endl;
                         }
 
@@ -421,10 +369,10 @@ int main() {
 
                     inputFile.close();
 
-                    double avgCategorize = totalCategorize / 3;
-                    double avgWriteVargsiukai = totalWriteVargsiukai / 3;
-                    double avgRead = totalRead / 3;
-                    double avgSort = totalSort / 3;
+                    double avgCategorize = totalCategorize / 5;
+                    double avgWriteVargsiukai = totalWriteVargsiukai / 5;
+                    double avgRead = totalRead / 5;
+                    double avgSort = totalSort / 5;
 
                     cout << fixed << setprecision(10) << "Failo is " << pradinisStudentuSkaicius
                          << " irasu nuskaitymo laikas: " << avgRead << flush
@@ -438,6 +386,8 @@ int main() {
                     cout << pradinisStudentuSkaicius << " irasu testo laikas "
                          << avgRead + avgWriteVargsiukai + avgCategorize +
                             +avgSort << endl;
+
+                    break;
                 }
 
                 case 3: {
@@ -449,32 +399,37 @@ int main() {
                     double totalRead = 0;
                     double totalSort = 0;
 
-                    for (int kartojimai = 1; kartojimai <= 3; ++kartojimai) {
+                    for (int kartojimai = 1; kartojimai <= 5; ++kartojimai) {
                         vargsiukai.clear();
                         kietiakai.clear();
                         auto startRead = chrono::high_resolution_clock::now();
                         while (getline(inputFile, line)) {
                             istringstream iss(line);
                             Studentas studentas;
-                            if (!(iss >> studentas.pavarde >> studentas.vardas)) {
+
+                            std::string pavarde, vardas;
+                            if (!(iss >> pavarde >> vardas)) {
                                 cerr << "Klaida - neteisingas duomenų formatas: " << line << endl;
                                 continue;
                             }
-                            studentas.pazymiai.clear();
+                            studentas.setPavarde(pavarde);
+                            studentas.setVardas(vardas);
+
+                            studentas.getPazymiai().clear();
                             int pazymys;
                             while (iss >> pazymys) {
-                                studentas.pazymiai.push_back(pazymys);
+                                studentas.getPazymiai().push_back(pazymys);
                             }
-                            if (studentas.pazymiai.empty()) {
+                            if (studentas.getPazymiai().empty()) {
                                 cerr << "Klaida - nėra pažymių duomenų: " << line << endl;
                                 continue;
                             }
-                            studentas.egzas = studentas.pazymiai.back();
-                            studentas.pazymiai.pop_back();
 
-                            studentas.galutinis_vidurkis = apskaiciuotiGalutiniBalaVidurkis(studentas.pazymiai,
-                                                                                            studentas.egzas);
-                            studentas.galutinis_mediana = skaiciuotiGalutiniBalaMediana(studentas.pazymiai);
+                            studentas.setEgzas(studentas.getPazymiai().back());
+                            studentas.getPazymiai().pop_back();
+
+                            studentas.setGalutinisVidurkis(apskaiciuotiGalutiniBalaVidurkis(studentas.getPazymiai(), studentas.getEgzas()));
+                            studentas.setGalutinisMediana(skaiciuotiGalutiniBalaMediana(studentas.getPazymiai()));
 
                             studentai.push_back(studentas);
                         }
@@ -495,7 +450,7 @@ int main() {
                         totalSort += durationSort.count();
                         auto startCategorize = chrono::high_resolution_clock::now();
 
-                        auto galutinis_balas = [](const Studentas &s) { return s.galutinis_vidurkis < 5.0; };
+                        auto galutinis_balas = [](const Studentas &s) { return s.getGalutinisVidurkis() < 5.0; };
 
                         auto it = partition(studentai.begin(), studentai.end(), galutinis_balas);
 
@@ -507,12 +462,13 @@ int main() {
 
 
                         ofstream vargsiukaiFile("C:\\Users\\User\\Desktop\\pirma-0.3\\vargsiukai.txt");
-                        ofstream kietiakiaiFile("C:\\Users\\User\\pirma-0.3\\kietiakiai.txt");
+                        ofstream kietiakiaiFile("C:\\Users\\User\\Desktop\\pirma-0.3\\kietiakiai.txt");
                         auto startWriteVargsiukai = chrono::high_resolution_clock::now();
 
                         for (const Studentas &studentas: vargsiukai) {
-                            vargsiukaiFile << studentas.vardas << " " << studentas.pavarde << " "
-                                           << studentas.galutinis_vidurkis << endl;
+                            vargsiukaiFile << studentas.getVardas() << " " << studentas.getPavarde() << " "
+                                           << studentas.getGalutinisVidurkis()
+                                           << endl;
                         }
 
                         auto endWriteVargsiukai = chrono::high_resolution_clock::now();
@@ -520,8 +476,8 @@ int main() {
                         auto startWriteKietiakiai = chrono::high_resolution_clock::now();
 
                         for (const Studentas &studentas: kietiakai) {
-                            kietiakiaiFile << studentas.vardas << " " << studentas.pavarde << " "
-                                           << studentas.galutinis_vidurkis
+                            kietiakiaiFile << studentas.getVardas() << " " << studentas.getPavarde() << " "
+                                           << studentas.getGalutinisVidurkis()
                                            << endl;
                         }
 
@@ -543,11 +499,11 @@ int main() {
                     }
 
 
-                    double avgCategorize = totalCategorize / 3;
-                    double avgWriteVargsiukai = totalWriteVargsiukai / 3;
-                    double avgWriteKietiakai = totalWriteKetiakai / 3;
-                    double avgRead = totalRead / 3;
-                    double avgSort = totalSort / 3;
+                    double avgCategorize = totalCategorize / 5;
+                    double avgWriteVargsiukai = totalWriteVargsiukai / 5;
+                    double avgWriteKietiakai = totalWriteKetiakai / 5;
+                    double avgRead = totalRead / 5;
+                    double avgSort = totalSort / 5;
 
                     cout << fixed << setprecision(6);
                     cout << "Failo is " << studentai.size() << " irasu nuskaitymo laikas: " << avgRead << " sekundziu"
@@ -566,7 +522,7 @@ int main() {
                          << avgRead + avgSort + avgCategorize +
                             avgWriteVargsiukai + avgWriteKietiakai;
                     break;
-                }
+                } */
             }
         }
     }
