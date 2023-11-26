@@ -183,3 +183,116 @@ Tada programa paprasys pasirinkti kokia strategija norite pritaikyti ir matavimo
 
 
 
+
+
+# __V1.1__
+
+
+Versija v1.0 buvo realizuota su class'emis, todėl tikslas buvo palyginti abiejų programų: naudojančios struct   
+iš v1.0 ir class tipo Studentus iš dabartinės realizacijos veikimo laiką, naudojant vieną fiksuotą kontenerį (vector)  
+Kadangi greičiausia strategija buvo Nr3, todėl palyginimai buvo atlikti naudojant būtent strategiją Nr3.
+
+-----------------------------------------------------------------------------------------------------------
+
+__Struct: __
+
+|          Operacijos          | 100000.txt | 1000000.txt |
+|:----------------------------:|:----------:|:-----------:|
+|       Failo skaitymas        | 0.571593 s | 5.989166 s  |
+|          Rušiavimas          | 0.076395 s | 1.943283 s  |
+| Irasu dalijimas i dvi grupes | 0.007118 s | 0.077971 s  |
+|  Vargsiuku irasymas i faila  | 0.309592 s | 3.315348 s  |
+|   Keteku irasymas i faila    | 0.309998 s | 3.361488 s  |
+|     Ap. Bendras laikas       | 1.274695 s | 14.687256 s |
+
+__Class:__
+
+|          Operacijos          |   100000.txt    | 1000000.txt |
+|:----------------------------:|:---------------:|:-----------:|
+|       Failo skaitymas        |   0.547799 s    | 5.543150 s  |
+|          Rušiavimas          |   0.733446 s    | 5.980395 s  |
+| Irasu dalijimas i dvi grupes |   0.016154 s    | 0.189791 s  |
+|  Vargsiuku irasymas i faila  |   0.315359 s    | 3.237792 s  |
+|   Keteku irasymas i faila    |   0.319776 s    | 3.300957 s  |
+|     Ap. Bendras laikas       |   1.932535 s    | 18.252086 s |
+
+-----------------------------------------------------------------------------------------------------------
+### ___FLAG 01___  
+__Struct:__
+
+|          Operacijos          | 100000.txt | 1000000.txt |
+|:----------------------------:|:----------:|:-----------:|
+|       Failo skaitymas        | 0.529299 s | 5.299737 s  |
+|          Rušiavimas          | 0.077640 s | 1.836603 s  |
+| Irasu dalijimas i dvi grupes | 0.007297 s | 0.075269 s  |
+|  Vargsiuku irasymas i faila  | 0.314385 s | 3.131496 s  |
+|   Keteku irasymas i faila    | 0.310402 s | 3.187624 s  |
+|     Ap. Bendras laikas       | 1.239022 s | 13.530729 s |
+
+__Class:__
+
+|          Operacijos          | 100000.txt | 1000000.txt |
+|:----------------------------:|:----------:|:-----------:|
+|       Failo skaitymas        | 0.548622 s | 5.466082 s  |
+|          Rušiavimas          | 0.717433 s | 5.853845 s  |
+| Irasu dalijimas i dvi grupes | 0.018312 s | 0.192530 s  |
+|  Vargsiuku irasymas i faila  | 0.314118 s | 3.191929 s  |
+|   Keteku irasymas i faila    | 0.323983 s | 3.228211 s  |
+|     Ap. Bendras laikas       | 1.922468 s | 17.932597 s |
+
+-----------------------------------------------------------------------------------------------------------
+
+### ___FLAG 02___
+
+__Struct:__
+
+|          Operacijos          | 100000.txt | 1000000.txt |
+|:----------------------------:|:----------:|:-----------:|
+|       Failo skaitymas        | 0.533263 s | 5.274458 s  |
+|          Rušiavimas          | 0.078503 s | 1.852389 s  |
+| Irasu dalijimas i dvi grupes | 0.007294 s | 0.073171 s  |
+|  Vargsiuku irasymas i faila  | 0.309397 s | 3.147381 s  |
+|   Keteku irasymas i faila    | 0.316356 s | 3.171818 s  |
+|     Ap. Bendras laikas       | 1.244813 s | 13.519218 s |
+
+__Class:__
+
+|          Operacijos          | 100000.txt | 1000000.txt |
+|:----------------------------:|:----------:|:-----------:|
+|       Failo skaitymas        | 0.545427 s | 5.496153 s  |
+|          Rušiavimas          | 0.727605 s | 5.769566 s  |
+| Irasu dalijimas i dvi grupes | 0.016126 s | 0.187719 s  |
+|  Vargsiuku irasymas i faila  | 0.310042 s | 3.181238 s  |
+|   Keteku irasymas i faila    | 0.319782 s | 3.222326 s  |
+|     Ap. Bendras laikas       | 1.918982 s | 17.857002 s |
+
+-----------------------------------------------------------------------------------------------------------
+
+### ___FLAG 03___
+
+__Struct:__
+
+|          Operacijos          | 100000.txt |  1000000.txt   |
+|:----------------------------:|:----------:|:--------------:|
+|       Failo skaitymas        | 0.536109 s | 5.281998 s     |
+|          Rušiavimas          | 0.078029 s |   1.845768 s   |
+| Irasu dalijimas i dvi grupes | 0.007426 s |   0.080346 s   |
+|  Vargsiuku irasymas i faila  | 0.312184 s |   3.132923 s   |
+|   Keteku irasymas i faila    | 0.315715 s |   3.170846 s   |
+|     Ap. Bendras laikas       | 1.249463 s |   13.511881    |
+
+__Class:__
+
+|          Operacijos          | 100000.txt | 1000000.txt |
+|:----------------------------:|:----------:|:-----------:|
+|       Failo skaitymas        | 0.541885 s | 5.500045 s  |
+|          Rušiavimas          | 0.719613 s | 5.839997 s  |
+| Irasu dalijimas i dvi grupes | 0.015724 s | 0.192832 s  |
+|  Vargsiuku irasymas i faila  | 0.319889 s | 3.160602 s  |
+|   Keteku irasymas i faila    | 0.319154 s | 3.161902 s  |
+|     Ap. Bendras laikas       | 1.916265 s | 17.855378 s |
+
+-----------------------------------------------------------------------------------------------------------
+
+Kaip matome iš rezultatų, geriausią laiką parodė FLAG 03 Struct. Class'ės yra šiek tiek letesnes, nepriklausomai nuo  
+FLAG'ų, dirba beveik vienodai, bet verta pastebėti, kad FLAG'ai vistiek paspartina programos veikimo greitį.

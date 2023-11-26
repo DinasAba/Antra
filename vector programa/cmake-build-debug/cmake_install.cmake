@@ -1,4 +1,4 @@
-# Install script for directory: C:/Users/User/Desktop/pirma-0.2
+# Install script for directory: C:/Users/User/Desktop/1.1/pirma-v.1/vector programa
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -45,5 +45,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "C:/Users/User/Desktop/pirma-0.2/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "C:/Users/User/Desktop/1.1/pirma-v.1/vector programa/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
