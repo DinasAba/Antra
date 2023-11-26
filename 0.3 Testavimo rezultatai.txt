@@ -1,0 +1,40 @@
+Failo 1000.txt vid. kurimo trukme: 7 milisekundes
+Failo 10000.txt vid. kurrimo trukme: 66 milisekundes
+Failo 100000.txt vid. kurimo trukme: 664 milisekundes
+Failo 1000000.txt vid. kurimo trukme: 6533 milisekundes
+Failo 10000000.txt vid. kurimo trukme: 63333 milisekundes
+
+Failo is 1000 irasu nuskaitymo laikas: 0.0055796 sekundziu
+1000 irasu dalijimo i dvigrupes laikas: 0.0080845 sekundziu
+506 irasu vargsiuku irasymo i faila laikas: 0.0035056 sekundziu
+494 irasu keteku irasymo i faila laikas: 0.0033369 sekundziu
+1000 irasu testo laikas 0.0205066 sekundziu
+
+Failo is 10000 irasu nuskaitymo laikas: 0.0656505 sekundziu
+10000 irasu dalijimo i dvigrupes laikas: 0.0662566 sekundziu
+2359 irasu vargsiuku irasymo i faila laikas: 0.0150613 sekundziu
+7641 irasu keteku irasymo i faila laikas: 0.0465487 sekundziu
+10000 irasu testo laikas 0.193517 sekundziu
+
+Failo is 100000 irasu nuskaitymo laikas: 0.499392 sekundziu
+100000 irasu dalijimo i dvigrupes laikas: 0.670197 sekundziu
+48063 irasu vargsiuku irasymo i faila laikas: 0.297379 sekundziu
+51937 irasu keteku irasymo i faila laikas: 0.329673 sekundziu
+100000 irasu testo laikas 1.79664 sekundziu
+
+Failo is 1000000 irasu nuskaitymo laikas: 5.90349 sekundziu
+1000000 irasu dalijimo i dvigrupes laikas: 6.44916 sekundziu
+478449 irasu vargsiuku irasymo i faila laikas: 2.91555 sekundziu
+521551 irasu keteku irasymo i faila laikas: 3.0926 sekundziu
+1000000 irasu testo laikas 18.3608 sekundziu
+
+Failo is 10000000 irasu nuskaitymo laikas: 64.9485 sekundziu
+10000000 irasu dalijimo i dvigrupes laikas: 65.2676 sekundziu
+4779769 irasu vargsiuku irasymo i faila laikas: 29.52 sekundziu
+5220231 irasu keteku irasymo i faila laikas: 31.3602 sekundziu
+10000000 irasu testo laikas 191.096 sekundziu
+
+
+
+
+
