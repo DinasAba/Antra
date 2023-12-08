@@ -39,6 +39,48 @@ public:
     void setGalutinisMediana(double mediana) { galutinis_mediana = mediana; }
 
     ~Studentas() {pazymiai.clear(); };
+
+    Studentas(const Studentas& other) {
+        vardas = other.vardas;
+        pavarde = other.pavarde;
+        pazymiai = other.pazymiai;
+        egzas = other.egzas;
+        galutinis_vidurkis = other.galutinis_vidurkis;
+        galutinis_mediana = other.galutinis_mediana;
+    }
+
+    Studentas& operator=(const Studentas& other) {
+        if (this != &other) {
+            vardas = other.vardas;
+            pavarde = other.pavarde;
+            pazymiai = other.pazymiai;
+            egzas = other.egzas;
+            galutinis_vidurkis = other.galutinis_vidurkis;
+            galutinis_mediana = other.galutinis_mediana;
+        }
+        return *this;
+    }
+
+    friend std::istream& operator>>(std::istream& is, Studentas& studentas) {
+        std::cout << "Iveskite studento varda: ";
+        is >> studentas.vardas;
+        std::cout << "Iveskite studento pavarde: ";
+        is >> studentas.pavarde;
+        std::cout << "Iveskite egzamino rezultata: ";
+        is >> studentas.egzas;
+
+
+        return is;
+    }
+
+    friend std::ostream& operator<<(std::ostream& os, const Studentas& studentas) {
+        os << "Vardas: " << studentas.vardas << ", Pavarde: " << studentas.pavarde
+           << ", Egzamino rezultatas: " << studentas.egzas
+           << ", Galutinis vidurkis: " << studentas.galutinis_vidurkis
+           << ", Galutinis mediana: " << studentas.galutinis_mediana;
+
+        return os;
+    }
 };
 
 
