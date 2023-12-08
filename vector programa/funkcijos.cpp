@@ -33,15 +33,10 @@ double skaiciuotiGalutiniBalaMediana(const vector<int>& pazymiai) {
 
 double apskaiciuotiGalutiniBalaVidurkis(const vector<int>& pazymiai, int egzas) {
     double vidurkis = 0.0;
-
-    if (!pazymiai.empty()) {
-        for (size_t i = 0; i < pazymiai.size() - 1; ++i) {
-            vidurkis += pazymiai[i];
-        }
-
-        vidurkis /= (pazymiai.size() - 1);
+    for (int pazymis : pazymiai) {
+        vidurkis += pazymis;
     }
-
+    vidurkis /= (pazymiai.size() > 0 ? pazymiai.size() : 1);
     return 0.4 * vidurkis + 0.6 * egzas;
 }
 
@@ -49,6 +44,17 @@ vector<int> PazymiuGeneracija(int kiekis) {
     vector<int> pazymiai;
     for (int i = 0; i < kiekis; ++i) {
         pazymiai.push_back(rand() % 10 + 1);
+    }
+    return pazymiai;
+}
+
+vector<int> nuskaitytiPazymius() {
+    vector<int> pazymiai;
+    int pazymys;
+
+    cout << "Iveskite namu darbu rezultatus (pabaiga zymima -1):";
+    while (cin >> pazymys && pazymys != -1) {
+        pazymiai.push_back(pazymys);
     }
     return pazymiai;
 }

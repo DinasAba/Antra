@@ -13,6 +13,9 @@ private:
     double galutinis_vidurkis;
     double galutinis_mediana;
 
+
+
+
 public:
 
     Studentas() : egzas(0), galutinis_vidurkis(0.0), galutinis_mediana(0.0) {}
@@ -61,6 +64,14 @@ public:
         return *this;
     }
 
+    friend std::ostream& operator<<(std::ostream& os, const Studentas& studentas) {
+        os << "Vardas: " << studentas.vardas << ", Pavarde: " << studentas.pavarde
+           << ", Galutinis vidurkis: " << studentas.galutinis_vidurkis
+           << ", Galutinis mediana: " << studentas.galutinis_mediana;
+
+        return os;
+    }
+
     friend std::istream& operator>>(std::istream& is, Studentas& studentas) {
         std::cout << "Iveskite studento varda: ";
         is >> studentas.vardas;
@@ -70,16 +81,13 @@ public:
         is >> studentas.egzas;
 
 
+        std::cout << "Iveskite pazymius (pabaiga zymima -1): ";
+        int pazymys;
+        while (is >> pazymys && pazymys != -1) {
+            studentas.pazymiai.push_back(pazymys);
+        }
+
         return is;
-    }
-
-    friend std::ostream& operator<<(std::ostream& os, const Studentas& studentas) {
-        os << "Vardas: " << studentas.vardas << ", Pavarde: " << studentas.pavarde
-           << ", Egzamino rezultatas: " << studentas.egzas
-           << ", Galutinis vidurkis: " << studentas.galutinis_vidurkis
-           << ", Galutinis mediana: " << studentas.galutinis_mediana;
-
-        return os;
     }
 };
 

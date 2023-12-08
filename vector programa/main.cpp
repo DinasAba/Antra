@@ -35,41 +35,21 @@ int main() {
             if (ivedimas == 'R' || ivedimas == 'r') {
                 for (int i = 0; i < studentuSkaicius; ++i) {
                     Studentas studentas;
-                    cout << "Iveskite studento varda: ";
-                    string vardas;
-                    cin >> vardas;
-                    studentas.setVardas(vardas);
-                    cout << "Iveskite studento pavarde: ";
-                    string pavarde;
-                    cin >> pavarde;
-                    studentas.setPavarde(pavarde);
-                    cout << "Iveskite egzamino rezultata: ";
-                    char egzas;
-                    cin >> egzas;
-                    studentas.setEgzas(egzas);
+                    cin >> studentas;
 
-                    studentas.setPazymiai(nuskaitytiPazymius());
                     studentas.setGalutinisVidurkis(
-                            apskaiciuotiGalutiniBalaVidurkis(studentas.getPazymiai(), studentas.getEgzas()));
+                            apskaiciuotiGalutiniBalaVidurkis(studentas.getPazymiai(), studentas.getEgzas())
+                    );
                     studentas.setGalutinisMediana(skaiciuotiGalutiniBalaMediana(studentas.getPazymiai()));
 
                     studentai.push_back(studentas);
                 }
-
             }
 
             else if (ivedimas == 'A' || ivedimas == 'a') {
                 for (int i = 0; i < studentuSkaicius; ++i) {
                     Studentas studentas;
-                    cout << "Iveskite studento varda: ";
-                    string vardas;
-                    cin >> vardas;
-                    studentas.setVardas(vardas);
-
-                    cout << "Iveskite studento pavarde: ";
-                    string pavarde;
-                    cin >> pavarde;
-                    studentas.setPavarde(pavarde);
+                    cin >> studentas;
 
                     studentas.setEgzas(rand() % 10 + 1);
 
