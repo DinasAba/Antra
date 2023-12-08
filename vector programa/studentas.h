@@ -38,7 +38,7 @@ public:
     void setGalutinisVidurkis(double vidurkis) { galutinis_vidurkis = vidurkis; }
     void setGalutinisMediana(double mediana) { galutinis_mediana = mediana; }
 
-    ~Studentas() {};
+    ~Studentas() {pazymiai.clear(); };
 };
 
 
@@ -46,6 +46,7 @@ double apskaiciuotiGalutiniBalaVidurkis(const std::vector<int>& pazymiai, int eg
 bool RusiavimasPavarde(const Studentas& a, const Studentas& b);
 std::vector<int> PazymiuGeneracija(int kiekis);
 double skaiciuotiGalutiniBalaMediana(const std::vector<int>& pazymiai);
+std::vector<int> nuskaitytiPazymius();
 
 
 
