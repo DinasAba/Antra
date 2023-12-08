@@ -28,29 +28,61 @@ int main() {
                 throw invalid_argument("Klaida - neteisingas studentu skaicius.");
             }
 
+            char ivedimas;
+            cout << "Pasirinkite, kaip norite ivesti pazymius (R - ranka, A - atsitiktinai): ";
+            cin >> ivedimas;
 
-            for (int i = 0; i < studentuSkaicius; ++i) {
-                Studentas studentas;
-                cout << "Iveskite studento varda: ";
-                std::string vardas;
-                cin >> vardas;
-                studentas.setVardas(vardas);
+            if (ivedimas == 'R' || ivedimas == 'r') {
+                for (int i = 0; i < studentuSkaicius; ++i) {
+                    Studentas studentas;
+                    cout << "Iveskite studento varda: ";
+                    string vardas;
+                    cin >> vardas;
+                    studentas.setVardas(vardas);
+                    cout << "Iveskite studento pavarde: ";
+                    string pavarde;
+                    cin >> pavarde;
+                    studentas.setPavarde(pavarde);
+                    cout << "Iveskite egzamino rezultata: ";
+                    char egzas;
+                    cin >> egzas;
+                    studentas.setEgzas(egzas);
 
-                cout << "Iveskite studento pavarde: ";
-                std::string pavarde;
-                cin >> pavarde;
-                studentas.setPavarde(pavarde);
+                    studentas.setPazymiai(nuskaitytiPazymius());
+                    studentas.setGalutinisVidurkis(
+                            apskaiciuotiGalutiniBalaVidurkis(studentas.getPazymiai(), studentas.getEgzas()));
+                    studentas.setGalutinisMediana(skaiciuotiGalutiniBalaMediana(studentas.getPazymiai()));
 
-                studentas.setEgzas(rand() % 10 + 1);
+                    studentai.push_back(studentas);
+                }
 
-                studentas.setPazymiai(PazymiuGeneracija(rand() % 10 + 1));
+            }
 
-                cout << "Objekto adresas: " << &studentas << endl;
+            else if (ivedimas == 'A' || ivedimas == 'a') {
+                for (int i = 0; i < studentuSkaicius; ++i) {
+                    Studentas studentas;
+                    cout << "Iveskite studento varda: ";
+                    string vardas;
+                    cin >> vardas;
+                    studentas.setVardas(vardas);
 
-                studentas.setGalutinisVidurkis(apskaiciuotiGalutiniBalaVidurkis(studentas.getPazymiai(), studentas.getEgzas()));
-                studentas.setGalutinisMediana(skaiciuotiGalutiniBalaMediana(studentas.getPazymiai()));
+                    cout << "Iveskite studento pavarde: ";
+                    string pavarde;
+                    cin >> pavarde;
+                    studentas.setPavarde(pavarde);
 
-                studentai.push_back(studentas);
+                    studentas.setEgzas(rand() % 10 + 1);
+
+                    studentas.setPazymiai(PazymiuGeneracija(rand() % 10 + 1));
+
+                    cout << "Objekto adresas: " << &studentas << endl;
+
+                    studentas.setGalutinisVidurkis(
+                            apskaiciuotiGalutiniBalaVidurkis(studentas.getPazymiai(), studentas.getEgzas()));
+                    studentas.setGalutinisMediana(skaiciuotiGalutiniBalaMediana(studentas.getPazymiai()));
+
+                    studentai.push_back(studentas);
+                }
             }
 
 
@@ -110,7 +142,7 @@ int main() {
             cin >> strategija;
 
             switch (strategija) {
-                case 1: {
+                /*  case 1: {
                     vector<Studentas> vargsiukai;
                     vector<Studentas> kietiakai;
 
@@ -269,7 +301,7 @@ int main() {
                          << avgRead + avgSort + avgCategorize +
                             avgWriteVargsiukai + avgWriteKietiakai;
                     break;
-                }
+                } */
 
 
               /*  case 2: {
@@ -388,7 +420,7 @@ int main() {
                             +avgSort << endl;
 
                     break;
-                }
+                } */
 
                 case 3: {
                     vector<Studentas> vargsiukai;
@@ -400,38 +432,60 @@ int main() {
                     double totalSort = 0;
 
                     for (int kartojimai = 1; kartojimai <= 5; ++kartojimai) {
-                        vargsiukai.clear();
                         kietiakai.clear();
-                        auto startRead = chrono::high_resolution_clock::now();
+                        vargsiukai.clear();
+
+                        auto startRead = std::chrono::high_resolution_clock::now();
+
+                        std::ifstream inputFile(filename);
+                        if (!inputFile.is_open()) {
+                            throw std::runtime_error("Klaida - failas nerastas.");
+                        }
+                        std::string line;
+
+                        studentai.clear();
+
+                        getline(inputFile, line);
+
+
                         while (getline(inputFile, line)) {
                             istringstream iss(line);
                             Studentas studentas;
 
-                            std::string pavarde, vardas;
-                            if (!(iss >> pavarde >> vardas)) {
+                            std::string vardas, pavarde;
+                            if (!(iss >> vardas >> pavarde)) {
                                 cerr << "Klaida - neteisingas duomenų formatas: " << line << endl;
                                 continue;
                             }
-                            studentas.setPavarde(pavarde);
-                            studentas.setVardas(vardas);
 
-                            studentas.getPazymiai().clear();
+                            studentas.setVardas(vardas);
+                            studentas.setPavarde(pavarde);
+
+                            studentas.clearPazymiai();
+
                             int pazymys;
                             while (iss >> pazymys) {
-                                studentas.getPazymiai().push_back(pazymys);
+                                studentas.addPazymys(pazymys);
                             }
+
+
                             if (studentas.getPazymiai().empty()) {
                                 cerr << "Klaida - nėra pažymių duomenų: " << line << endl;
                                 continue;
                             }
 
-                            studentas.setEgzas(studentas.getPazymiai().back());
-                            studentas.getPazymiai().pop_back();
+                            if (!studentas.getPazymiai().empty()) {
+                                int egzas = studentas.getPazymiai().back();
+                                studentas.getPazymiai().pop_back();
+                                studentas.setEgzas(egzas);}
 
-                            studentas.setGalutinisVidurkis(apskaiciuotiGalutiniBalaVidurkis(studentas.getPazymiai(), studentas.getEgzas()));
-                            studentas.setGalutinisMediana(skaiciuotiGalutiniBalaMediana(studentas.getPazymiai()));
 
-                            studentai.push_back(studentas);
+                            const auto& pazymiai = studentas.getPazymiai();
+
+                            studentas.setGalutinisVidurkis(apskaiciuotiGalutiniBalaVidurkis(pazymiai, studentas.getEgzas()));
+
+
+                            studentai.push_back(std::move(studentas));
                         }
 
                         inputFile.close();
@@ -522,7 +576,7 @@ int main() {
                          << avgRead + avgSort + avgCategorize +
                             avgWriteVargsiukai + avgWriteKietiakai;
                     break;
-                } */
+                }
             }
         }
     }
