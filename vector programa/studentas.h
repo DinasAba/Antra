@@ -5,6 +5,7 @@
 #include <algorithm>
 
 class Zmogus {
+
 protected:
     std::string vardas;
     std::string pavarde;
@@ -20,17 +21,12 @@ public:
     virtual void setVardas(const std::string& v) { vardas = v; }
     virtual void setPavarde(const std::string& p) { pavarde = p; }
 
-
     virtual void printInfo() const = 0;
 };
 
 
-
 class Studentas : public Zmogus {
-
 private:
-    std::string vardas;
-    std::string pavarde;
     std::vector<int> pazymiai;
     int egzas;
     double galutinis_vidurkis;
@@ -43,8 +39,8 @@ public:
     Studentas(const std::string& v, const std::string& p, const std::vector<int>& paz, int e)
             : Zmogus(v, p), pazymiai(paz), egzas(e), galutinis_vidurkis(0.0), galutinis_mediana(0.0) {}
 
-    const std::string getVardas() const { return vardas; }
-    const std::string getPavarde() const { return pavarde; }
+    const std::string& getVardas() const override { return Zmogus::vardas; }
+    const std::string& getPavarde() const override { return Zmogus::pavarde; }
     std::vector<int> getPazymiai() const { return pazymiai; }
     int getEgzas() const { return egzas; }
     double getGalutinisVidurkis() const { return galutinis_vidurkis; }
