@@ -13,6 +13,9 @@ private:
     double galutinis_vidurkis;
     double galutinis_mediana;
 
+
+
+
 public:
 
     Studentas() : egzas(0), galutinis_vidurkis(0.0), galutinis_mediana(0.0) {}
@@ -38,7 +41,54 @@ public:
     void setGalutinisVidurkis(double vidurkis) { galutinis_vidurkis = vidurkis; }
     void setGalutinisMediana(double mediana) { galutinis_mediana = mediana; }
 
-    ~Studentas() {};
+    ~Studentas() {pazymiai.clear(); };
+
+    Studentas(const Studentas& other) {
+        vardas = other.vardas;
+        pavarde = other.pavarde;
+        pazymiai = other.pazymiai;
+        egzas = other.egzas;
+        galutinis_vidurkis = other.galutinis_vidurkis;
+        galutinis_mediana = other.galutinis_mediana;
+    }
+
+    Studentas& operator=(const Studentas& other) {
+        if (this != &other) {
+            vardas = other.vardas;
+            pavarde = other.pavarde;
+            pazymiai = other.pazymiai;
+            egzas = other.egzas;
+            galutinis_vidurkis = other.galutinis_vidurkis;
+            galutinis_mediana = other.galutinis_mediana;
+        }
+        return *this;
+    }
+
+    friend std::ostream& operator<<(std::ostream& os, const Studentas& studentas) {
+        os << "Vardas: " << studentas.vardas << ", Pavarde: " << studentas.pavarde
+           << ", Galutinis vidurkis: " << studentas.galutinis_vidurkis
+           << ", Galutinis mediana: " << studentas.galutinis_mediana;
+
+        return os;
+    }
+
+    friend std::istream& operator>>(std::istream& is, Studentas& studentas) {
+        std::cout << "Iveskite studento varda: ";
+        is >> studentas.vardas;
+        std::cout << "Iveskite studento pavarde: ";
+        is >> studentas.pavarde;
+        std::cout << "Iveskite egzamino rezultata: ";
+        is >> studentas.egzas;
+
+
+        std::cout << "Iveskite pazymius (pabaiga zymima -1): ";
+        int pazymys;
+        while (is >> pazymys && pazymys != -1) {
+            studentas.pazymiai.push_back(pazymys);
+        }
+
+        return is;
+    }
 };
 
 
@@ -46,6 +96,7 @@ double apskaiciuotiGalutiniBalaVidurkis(const std::vector<int>& pazymiai, int eg
 bool RusiavimasPavarde(const Studentas& a, const Studentas& b);
 std::vector<int> PazymiuGeneracija(int kiekis);
 double skaiciuotiGalutiniBalaMediana(const std::vector<int>& pazymiai);
+std::vector<int> nuskaitytiPazymius();
 
 
 
