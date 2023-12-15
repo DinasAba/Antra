@@ -58,6 +58,11 @@ public:
     void setEgzas(int e) { egzas = e; }
     void setGalutinisVidurkis(double vidurkis) { galutinis_vidurkis = vidurkis; }
     void setGalutinisMediana(double mediana) { galutinis_mediana = mediana; }
+    void printInfo() const override {
+        std::cout << "Vardas: " << getVardas() << ", Pavarde: " << getPavarde()
+                  << ", Galutinis vidurkis: " << galutinis_vidurkis
+                  << ", Galutinis mediana: " << galutinis_mediana << std::endl;
+    }
 
     ~Studentas() {pazymiai.clear(); };
 
