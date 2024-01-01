@@ -315,7 +315,7 @@ Realizuoti ir demonstruojami visi metodai atitinkantis trijų metodų taisyklę.
 
 # __V2.0__
 
-Pateikta klasę aprašanti dokumentacija HTML formatu. Realizuoti ir demonstruojami unit test testai su savo klasė
+Pateikta klasę aprašanti dokumentacija HTML formatu. Realizuoti ir demonstruojami unit test testai su savo klasė.
 
  -----------------------------------------------------------------------------------------------------------
 
