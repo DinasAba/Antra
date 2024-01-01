@@ -80,6 +80,7 @@ Vid. failo skaitymo laikas:
 
 
 |          Operacijos          |    1000.txt    |   10000.txt    |   100000.txt    | 1000000.txt | 10000000.txt |
+
 |:----------------------------:|:--------------:|:--------------:|:---------------:|:-----------:|:------------:|
 |       Failo skaitymas        |   0.00502 s    |    0.045 s     |   0.431851  s   |      -      |      -       |
 |          Rušiavimas          | 0.0001945333 s | 0.0022975000 s | 0.0233175667 s  |      -      |      -       |
@@ -303,9 +304,20 @@ FLAG'ų, dirba beveik vienodai, bet verta pastebėti, kad FLAG'ai vistiek paspar
 
 Realizuoti ir demonstruojami visi metodai atitinkantis trijų metodų taisyklę. Perdengti įvesties ir išvesties metodai darbui su Studentų klasę. 
 
-------------------------------------------------------------------------------------------------------------
+
+ -----------------------------------------------------------------------------------------------------------
 
 # __V1.5__
 
  Realizuota abstrakti klasė Žmogus, jos objektų kūrimas negalimas. Studento klasė išvestinė (derived) iš Žmogaus ir palaiko 1.2 versijoje realizuotą trejų metodų taisyklę. 
+
+ -----------------------------------------------------------------------------------------------------------
+
+# __V2.0__
+
+Pateikta klasę aprašanti dokumentacija HTML formatu. Realizuoti ir demonstruojami unit test testai su savo klasė.
+
+ -----------------------------------------------------------------------------------------------------------
+
+ -----------------------------------------------------------------------------------------------------------
 
