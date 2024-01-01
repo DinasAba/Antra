@@ -312,3 +312,9 @@ Realizuoti ir demonstruojami visi metodai atitinkantis trijų metodų taisyklę.
  Realizuota abstrakti klasė Žmogus, jos objektų kūrimas negalimas. Studento klasė išvestinė (derived) iš Žmogaus ir palaiko 1.2 versijoje realizuotą trejų metodų taisyklę. 
 
  -----------------------------------------------------------------------------------------------------------
+
+# __V2.0__
+
+Pateikta klasę aprašanti dokumentacija HTML formatu. Realizuoti ir demonstruojami unit test testai su savo klasė
+
+ -----------------------------------------------------------------------------------------------------------
