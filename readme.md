@@ -302,3 +302,10 @@ FLAG'ų, dirba beveik vienodai, bet verta pastebėti, kad FLAG'ai vistiek paspar
 # __V1.2__
 
 Realizuoti ir demonstruojami visi metodai atitinkantis trijų metodų taisyklę. Perdengti įvesties ir išvesties metodai darbui su Studentų klasę. 
+
+------------------------------------------------------------------------------------------------------------
+
+# __V1.5__
+
+ Realizuota abstrakti klasė Žmogus, jos objektų kūrimas negalimas. Studento klasė išvestinė (derived) iš Žmogaus ir palaiko 1.2 versijoje realizuotą trejų metodų taisyklę. 
+
