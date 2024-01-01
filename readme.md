@@ -296,3 +296,12 @@ __Class:__
 
 Kaip matome iš rezultatų, geriausią laiką parodė FLAG 03 Struct. Class'ės yra šiek tiek letesnes, nepriklausomai nuo  
 FLAG'ų, dirba beveik vienodai, bet verta pastebėti, kad FLAG'ai vistiek paspartina programos veikimo greitį.
+
+------------------------------------------------------------------------------------------------------------
+
+# __V1.2__
+
+Realizuoti ir demonstruojami visi metodai atitinkantis trijų metodų taisyklę. Perdengti įvesties ir išvesties metodai darbui su Studentų klasę. 
+
+
+------------------------------------------------------------------------------------------------------------
