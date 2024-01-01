@@ -103,15 +103,15 @@ int main() {
 
             string filename;
             if (FailoPasirinkimas == 1000) {
-                filename = "C:\\Users\\User\\uzduotis\\1000.txt";
+                filename = "1000.txt";
             } else if (FailoPasirinkimas == 10000) {
-                filename = "C:\\Users\\User\\uzduotis\\10000.txt";
+                filename = "10000.txt";
             } else if (FailoPasirinkimas == 100000) {
-                filename = "C:\\Users\\User\\uzduotis\\100000.txt";
+                filename = "100000.txt";
             } else if (FailoPasirinkimas == 1000000) {
-                filename = "C:\\Users\\User\\uzduotis\\1000000.txt";
+                filename = "1000000.txt";
             } else if (FailoPasirinkimas == 10000000) {
-                filename = "C:\\Users\\User\\uzduotis\\10000000.txt";
+                filename = "10000000.txt";
             } else {
                 cerr << "Klaida, pasirinkite tinkama faila" << endl;
             }
@@ -495,8 +495,8 @@ int main() {
                                        back_inserter(kietiakai), galutinis_balas);
 
 
-                        ofstream vargsiukaiFile("C:\\Users\\User\\Desktop\\pirma-0.3\\vargsiukai.txt");
-                        ofstream kietiakiaiFile("C:\\Users\\User\\Desktop\\pirma-0.3\\kietiakiai.txt");
+                        ofstream vargsiukaiFile("vargsiukai.txt");
+                        ofstream kietiakiaiFile("kietiakiai.txt");
                         auto startWriteVargsiukai = chrono::high_resolution_clock::now();
 
                         for (const Studentas &studentas: vargsiukai) {
